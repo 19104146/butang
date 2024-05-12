@@ -1,13 +1,12 @@
-import { Tabs } from "expo-router";
-
 import { MaterialIcons } from "@expo/vector-icons";
+import { Tabs } from "expo-router";
 
 export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
+        headerTintColor: "#F4F1EC",
         headerTitleStyle: {
-          color: "F4F1EC",
           fontSize: 32,
         },
         headerTransparent: true,
