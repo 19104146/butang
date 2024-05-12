@@ -43,7 +43,7 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="more"
+        name="more/index"
         options={{
           title: "More",
           tabBarIcon: ({ color }) => <MaterialIcons name="more-horiz" size={24} color={color} />,
