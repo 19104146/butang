@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-import { Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
+import { SplashScreen, Stack } from "expo-router";
 
 import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
 

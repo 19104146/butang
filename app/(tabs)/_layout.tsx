@@ -6,8 +6,20 @@ export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#c88426",
+        headerTitleStyle: {
+          color: "F4F1EC",
+          fontSize: 32,
+        },
+        headerTransparent: true,
+        tabBarActiveTintColor: "#C88426",
+        tabBarInactiveTintColor: "#E8EAED",
         tabBarShowLabel: false,
+        tabBarStyle: {
+          backgroundColor: "transparent",
+          borderTopWidth: 0,
+          elevation: 0,
+          position: "absolute",
+        },
       }}
     >
       <Tabs.Screen
@@ -28,7 +40,7 @@ export default function TabsLayout() {
         name="activity"
         options={{
           title: "Activity",
-          tabBarIcon: ({ color }) => <MaterialIcons name="local-activity" size={24} color={color} />,
+          tabBarIcon: ({ color }) => <MaterialIcons name="import-contacts" size={24} color={color} />,
         }}
       />
       <Tabs.Screen
