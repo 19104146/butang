@@ -39,13 +39,18 @@ export default function OverviewScreen() {
             <FlatList
               data={items}
               renderItem={({item}) => (
-                <View style={{flexDirection: 'row', justifyContent: 'space-between', marginVertical: 8}}>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between', marginVertical: 8, paddingRight: 10}}>
                   <Text style={styles.contentText}>{item.name}</Text>
                   <Text style={styles.contentText}>{item.quantity}</Text>
                 </View>
               )}
-              showsVerticalScrollIndicator={false}
+              showsVerticalScrollIndicator={true}
               overScrollMode="never"
+              persistentScrollbar={true}
+              keyExtractor={(item, index) => index.toString()}
+              ItemSeparatorComponent={() => {
+                return <View style={{height: 2, backgroundColor: "#8A8A8A", width: '25%'}}/>
+              }}
             />
           </View>
         </LinearGradient>
@@ -73,6 +78,10 @@ export default function OverviewScreen() {
                 end={{ x: 0, y: 1 }}
                 style={[styles.lowStockView, {height: "60%", width: "100%"}]}
               >
+                <View style={[styles.container, {gap: 10}]}>
+                  <Text style={[styles.headerText, {fontSize: 32}]}>529</Text>
+                  <Text style={{fontSize: 20, color: '#8A8A8A'}}>Items</Text>
+                </View>
               </LinearGradient>
               <LinearGradient
                 dither={false}
@@ -82,6 +91,10 @@ export default function OverviewScreen() {
                 end={{ x: 0, y: 1 }}
                 style={[styles.lowStockView, {height: "40%", width: "100%"}]}
               >
+                <View style={[styles.container, {gap: 0, paddingHorizontal: 0}]}>
+                  <Text style={[styles.headerText, {fontSize: 32}]}>100</Text>
+                  <Text style={{fontSize: 20, color: '#8A8A8A'}}>Categories</Text>
+                </View>
               </LinearGradient>
             </View>
             <View style={{flex:1, gap: 15}}>
@@ -93,6 +106,10 @@ export default function OverviewScreen() {
                 end={{ x: 0, y: 1 }}
                 style={[styles.lowStockView, {height: "40%", width: "100%"}]}
               >
+                <View style={[styles.container, {gap: 10}]}>
+                  <Text style={[styles.headerText, {fontSize: 32}]}>420</Text>
+                  <Text style={{fontSize: 20, color: '#8A8A8A'}}>Recents</Text>
+                </View>
               </LinearGradient>
               <LinearGradient
                 dither={false}
@@ -102,6 +119,13 @@ export default function OverviewScreen() {
                 end={{ x: 0, y: 1 }}
                 style={[styles.lowStockView, {height: "60%", width: "100%"}]}
               >
+                <View style={[styles.container, {gap: 10}]}>
+                  <Text style={[styles.headerText, {fontSize: 32}]}>9</Text>
+                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <Text style={{fontSize: 20, color: '#8A8A8A', alignSelf: 'flex-start'}}>Medicine</Text>
+                    <MaterialIcons name="keyboard-arrow-down" size={28} color="#8A8A8A"/>
+                  </View>
+                </View>
               </LinearGradient>
             </View>
           </View>
@@ -113,7 +137,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "flex-start",
+    justifyContent: "center",
     padding: 15,
     gap: 20,
   },
