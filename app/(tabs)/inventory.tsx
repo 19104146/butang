@@ -1,19 +1,10 @@
 import { MaterialIcons } from "@expo/vector-icons";
+import { Picker } from "@react-native-picker/picker";
 import { useHeaderHeight } from "@react-navigation/elements";
+import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-
-const dummyCategories = [
-  {
-    id: 1,
-    name: "Medicine",
-  },
-  {
-    id: 2,
-    name: "Beverages",
-  },
-];
+import { FlatList, StyleSheet, Text, View } from "react-native";
 
 const dummyProducts = [
   {
@@ -21,21 +12,19 @@ const dummyProducts = [
     url: null,
     name: "Biogesic",
     quantity: 69,
-    categoryId: 1,
   },
   {
     id: 2,
     url: null,
     name: "Yakult",
     quantity: 420,
-    category: 2,
   },
 ];
 
 export default function InventoryScreen() {
   const headerHeight = useHeaderHeight();
 
-  const [category, setCategory] = useState<string>("All");
+  const [category, setCategory] = useState("all");
 
   return (
     <View style={StyleSheet.compose(styles.container, { paddingTop: headerHeight + 20 })}>
@@ -48,34 +37,43 @@ export default function InventoryScreen() {
         style={StyleSheet.absoluteFill}
       />
       <View style={styles.innerContainer}>
-        <Text style={styles.category}>
-          {category}
-          <MaterialIcons name="arrow-drop-down" size={20} />
-        </Text>
-        {dummyProducts.map(({ id, url, name, quantity }) => (
-          <View
-            key={id}
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-              {url ? (
-                <Text>Hello</Text>
-              ) : (
-                <MaterialIcons
-                  name="image"
-                  size={50}
-                  style={{ color: "#FFF", borderWidth: 1, borderRadius: 5, borderColor: "#FFF" }}
-                />
-              )}
-              <Text style={{ color: "#FFF" }}>{name}</Text>
+        <Picker
+          selectedValue={category}
+          onValueChange={(value) => setCategory(value)}
+          itemStyle={{ color: "#FFE9CB", fontSize: 20, fontWeight: 600 }}
+          style={{ color: "#FFE9CB", fontSize: 20, fontWeight: 600 }}
+          dropdownIconColor="#FFE9CB"
+        >
+          <Picker.Item label="All" value="all" />
+          <Picker.Item label="Medicine" value="medicine" />
+          <Picker.Item label="Beverages" value="beverages" />
+        </Picker>
+        <FlatList
+          data={dummyProducts}
+          renderItem={({ item }) => (
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+                {item.url ? (
+                  <Image
+                    source={item.url}
+                    style={{ borderColor: "#FFE9CB", borderWidth: 1, borderRadius: 5, padding: 5 }}
+                  />
+                ) : (
+                  <MaterialIcons
+                    name="photo"
+                    size={50}
+                    color="#FFE9CB"
+                    style={{ borderColor: "#FFE9CB", borderWidth: 1, borderRadius: 5, padding: 5 }}
+                  />
+                )}
+                <Text style={{ color: "#FFE9CB" }}>{item.name}</Text>
+              </View>
+              <Text style={{ color: "#FFE9CB" }}>{item.quantity}</Text>
             </View>
-            <Text style={{ color: "#FFF" }}>{quantity}</Text>
-          </View>
-        ))}
+          )}
+        />
       </View>
     </View>
   );
@@ -92,9 +90,5 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     gap: 10,
-  },
-  category: {
-    color: "#FFF",
-    fontSize: 20,
   },
 });
