@@ -23,7 +23,7 @@ export default function MoreScreen() {
           end={{ x: 0, y: 1 }}
           style={StyleSheet.compose(StyleSheet.absoluteFill, { borderRadius: 20 })}
         />
-        <Image style={styles.logo} source={require("../../assets/icon.png")} />
+        <Image source={require("@/assets/icon.png")} style={styles.logo} />
         <Text style={styles.butang}>Butang</Text>
       </View>
     </SafeAreaView>

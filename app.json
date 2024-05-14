@@ -21,10 +21,7 @@
         "backgroundColor": "#ffffff"
       }
     },
-    "plugins": [
-      "expo-router",
-      "expo-asset"
-    ],
+    "plugins": ["expo-router"],
     "expirements": {
       "typedRoutes": true
     }
