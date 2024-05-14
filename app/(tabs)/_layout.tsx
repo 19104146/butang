@@ -15,9 +15,6 @@ export default function TabsLayout() {
           elevation: 0,
           position: "absolute",
         },
-        headerRightContainerStyle: {
-          marginRight: 15.5,
-        },
         headerTintColor: "#F4F1EC",
         headerTitleStyle: {
           fontSize: 32,
@@ -69,6 +66,7 @@ export default function TabsLayout() {
 const styles = StyleSheet.create({
   headerRightContainer: {
     flexDirection: "row",
+    marginRight: 15.5,
     gap: 20,
   },
 });
