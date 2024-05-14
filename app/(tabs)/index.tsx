@@ -20,7 +20,7 @@ export default function OverviewScreen() {
 
   return (
     <SafeAreaView
-      style={StyleSheet.compose(styles.container, { paddingTop: headerHeight, paddingBottom: tabBarHeight + 20 })}
+      style={StyleSheet.compose(styles.container, { paddingTop: headerHeight + 5, paddingBottom: tabBarHeight + 25 })}
     >
       <LinearGradient
         dither={false}
@@ -65,7 +65,7 @@ export default function OverviewScreen() {
         locations={[0, 0.13, 0.29, 0.41, 0.68, 1]}
         start={{ x: 1, y: 0 }}
         end={{ x: 0, y: 1 }}
-        style={[styles.lowStockView, { height: "15%" }]}
+        style={[styles.lowStockView, { height: "20%" }]}
       >
         <Text style={styles.headerText}>Recent Activity</Text>
         <View style={{ paddingVertical: 7 }}>
@@ -143,17 +143,17 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    padding: 15,
+    padding: 20,
     gap: 20,
   },
   headerText: {
-    fontSize: 22,
+    fontSize: 20,
     color: "#FFE9CB",
     fontWeight: "bold",
   },
   contentText: {
     color: "#FFE9CB",
-    fontSize: 18,
+    fontSize: 16,
   },
   lowStockView: {
     backgroundColor: "transparent",
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 20,
     width: "100%",
-    height: "30%",
+    height: "27.5%",
     justifyContent: "flex-start",
   },
   itemContainer: {
