@@ -1,22 +1,51 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import { Picker } from "@react-native-picker/picker";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
+import { Dropdown } from "react-native-element-dropdown";
+
+const dummyCategories = [
+  { label: "All", value: null },
+  { label: "Medicine", value: "1" },
+  { label: "Beverage", value: "2" },
+];
 
 const dummyProducts = [
   {
     id: 1,
+    categoryId: "1",
     url: null,
     name: "Biogesic",
     quantity: 69,
   },
   {
     id: 2,
+    categoryId: "2",
     url: null,
     name: "Yakult",
+    quantity: 420,
+  },
+  {
+    id: 3,
+    categoryId: "2",
+    url: null,
+    name: "Dr. Pepper",
+    quantity: 420,
+  },
+  {
+    id: 4,
+    categoryId: "2",
+    url: null,
+    name: "Red Bull",
+    quantity: 420,
+  },
+  {
+    id: 5,
+    categoryId: "2",
+    url: null,
+    name: "Monster",
     quantity: 420,
   },
 ];
@@ -24,7 +53,12 @@ const dummyProducts = [
 export default function InventoryScreen() {
   const headerHeight = useHeaderHeight();
 
-  const [category, setCategory] = useState("all");
+  const [category, setCategory] = useState<string | null>(null);
+  const filteredProducts = useMemo(() => {
+    if (!category) return dummyProducts;
+
+    return dummyProducts.filter((product) => product.categoryId === category);
+  }, [category]);
 
   return (
     <View style={StyleSheet.compose(styles.container, { paddingTop: headerHeight + 20 })}>
@@ -37,19 +71,25 @@ export default function InventoryScreen() {
         style={StyleSheet.absoluteFill}
       />
       <View style={styles.innerContainer}>
-        <Picker
-          selectedValue={category}
-          onValueChange={(value) => setCategory(value)}
-          itemStyle={{ color: "#FFE9CB", fontSize: 20, fontWeight: 600 }}
-          style={{ color: "#FFE9CB", fontSize: 20, fontWeight: 600 }}
-          dropdownIconColor="#FFE9CB"
-        >
-          <Picker.Item label="All" value="all" />
-          <Picker.Item label="Medicine" value="medicine" />
-          <Picker.Item label="Beverages" value="beverages" />
-        </Picker>
+        <Dropdown
+          data={dummyCategories}
+          labelField="label"
+          valueField="value"
+          onChange={(item) => setCategory(item.value)}
+          value={category}
+          placeholder="All"
+          placeholderStyle={{ color: "#FFE9CB", fontSize: 20, fontWeight: 600 }}
+          selectedTextStyle={{ color: "#FFE9CB", fontSize: 20, fontWeight: 600 }}
+          containerStyle={{ borderColor: "#201E1B" }}
+          iconColor="#FFE9CB"
+          itemContainerStyle={{ backgroundColor: "#201E1B" }}
+          itemTextStyle={{ color: "#FFE9CB" }}
+          activeColor="#000"
+          showsVerticalScrollIndicator
+          autoScroll
+        />
         <FlatList
-          data={dummyProducts}
+          data={filteredProducts}
           renderItem={({ item }) => (
             <View
               style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}
