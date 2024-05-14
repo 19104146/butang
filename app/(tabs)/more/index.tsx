@@ -1,3 +1,4 @@
+import { MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet, Text, View } from "react-native";
@@ -23,8 +24,62 @@ export default function MoreScreen() {
           end={{ x: 0, y: 1 }}
           style={StyleSheet.compose(StyleSheet.absoluteFill, { borderRadius: 20 })}
         />
-        <Image source={require("@/assets/icon.png")} style={styles.logo} />
+        <Image style={styles.logo} source={require("@/assets/icon.png")} />
         <Text style={styles.butang}>Butang</Text>
+      </View>
+
+      <View style={styles.sec2}>
+        <View style={styles.smolNav}>
+          <LinearGradient
+            dither={false}
+            colors={["#925D11", "#6F4A16", "#573E1A", "#45351D", "#2D2922", "#201E1B"]}
+            locations={[0, 0.13, 0.29, 0.41, 0.68, 1]}
+            start={{ x: 1, y: 0 }}
+            end={{ x: 0, y: 0 }}
+            style={StyleSheet.compose(StyleSheet.absoluteFill, { borderRadius: 20 })}
+          />
+          <MaterialIcons name="settings" size={36} color="#FFE9CB" />
+          <Text style={styles.text}>Settings</Text>
+        </View>
+
+        <View style={styles.smolNav}>
+          <LinearGradient
+            dither={false}
+            colors={["#925D11", "#6F4A16", "#573E1A", "#45351D", "#2D2922", "#201E1B"]}
+            locations={[0, 0.13, 0.29, 0.41, 0.68, 1]}
+            start={{ x: 1, y: 0 }}
+            end={{ x: 0, y: 0 }}
+            style={StyleSheet.compose(StyleSheet.absoluteFill, { borderRadius: 20 })}
+          />
+          <MaterialIcons name="category" size={36} color="#FFE9CB" />
+          <Text style={styles.text}>Categories</Text>
+        </View>
+
+        <View style={styles.smolNav}>
+          <LinearGradient
+            dither={false}
+            colors={["#925D11", "#6F4A16", "#573E1A", "#45351D", "#2D2922", "#201E1B"]}
+            locations={[0, 0.13, 0.29, 0.41, 0.68, 1]}
+            start={{ x: 1, y: 0 }}
+            end={{ x: 0, y: 0 }}
+            style={StyleSheet.compose(StyleSheet.absoluteFill, { borderRadius: 20 })}
+          />
+          <MaterialIcons name="info" size={36} color="#FFE9CB" />
+          <Text style={styles.text}>About</Text>
+        </View>
+
+        <View style={styles.smolNav}>
+          <LinearGradient
+            dither={false}
+            colors={["#925D11", "#6F4A16", "#573E1A", "#45351D", "#2D2922", "#201E1B"]}
+            locations={[0, 0.13, 0.29, 0.41, 0.68, 1]}
+            start={{ x: 1, y: 0 }}
+            end={{ x: 0, y: 0 }}
+            style={StyleSheet.compose(StyleSheet.absoluteFill, { borderRadius: 20 })}
+          />
+          <MaterialIcons name="help" size={36} color="#FFE9CB" />
+          <Text style={styles.text}>Help</Text>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -39,9 +94,28 @@ const styles = StyleSheet.create({
     padding: 20,
     color: "#E8EAED",
   },
+  sec2: {
+    width: "100%",
+    gap: 20,
+  },
+  smolNav: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    width: "100%",
+    padding: 20,
+  },
+
+  text: {
+    fontSize: 20,
+    fontWeight: "700",
+    color: "#FFE9CB",
+    alignSelf: "center",
+    marginLeft: 20,
+  },
   card: {
     width: "100%",
     height: "30%",
+    marginBottom: 20,
     borderRadius: 20,
     alignItems: "center",
     justifyContent: "center",
@@ -52,7 +126,9 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   butang: {
-    color: "#C88426",
+    color: "#FFE9CB",
     fontSize: 30,
+    fontWeight: "700",
+    marginTop: 10,
   },
 });
