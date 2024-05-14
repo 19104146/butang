@@ -1,10 +1,10 @@
 import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
 import { SplashScreen, Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 
 import { db } from "@/db";
 import migrations from "@/drizzle/migrations";
-import { StatusBar } from "expo-status-bar";
 
 export { ErrorBoundary } from "expo-router";
 
