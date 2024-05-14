@@ -15,7 +15,14 @@ export default function TabsLayout() {
           elevation: 0,
           position: "absolute",
         },
+        headerRightContainerStyle: {
+          marginRight: 15.5,
+        },
         headerTintColor: "#F4F1EC",
+        headerTitleStyle: {
+          fontSize: 32,
+          fontWeight: 600,
+        },
         headerTransparent: true,
       }}
     >
