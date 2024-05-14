@@ -14,7 +14,6 @@ export default function OverviewScreen() {
 
   return (
     <SafeAreaView style={StyleSheet.compose(styles.container, { paddingTop: headerHeight+ 5, paddingBottom: tabBarHeight + 20})}>
-      <StatusBar style="light" />
       <LinearGradient
         dither={false}
         colors={["#D99536", "#B77E2E", "#936525", "#69481A", "#452F11", "#191106", "#0D0903", "#060402", "#000000"]}
@@ -39,7 +38,7 @@ export default function OverviewScreen() {
             <FlatList
               data={items}
               renderItem={({item}) => (
-                <View style={{flexDirection: 'row', justifyContent: 'space-between', marginVertical: 8, paddingRight: 10}}>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between', marginVertical: 8}}>
                   <Text style={styles.contentText}>{item.name}</Text>
                   <Text style={styles.contentText}>{item.quantity}</Text>
                 </View>
@@ -48,9 +47,7 @@ export default function OverviewScreen() {
               overScrollMode="never"
               persistentScrollbar={true}
               keyExtractor={(item, index) => index.toString()}
-              ItemSeparatorComponent={() => {
-                return <View style={{height: 2, backgroundColor: "#8A8A8A", width: '25%'}}/>
-              }}
+              contentContainerStyle={{paddingHorizontal: 10}}
             />
           </View>
         </LinearGradient>
