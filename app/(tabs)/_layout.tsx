@@ -19,6 +19,7 @@ export default function TabsLayout() {
         headerTitleStyle: {
           fontSize: 32,
           fontWeight: 600,
+          color: '#FFE9CB'
         },
         headerTransparent: true,
       }}
