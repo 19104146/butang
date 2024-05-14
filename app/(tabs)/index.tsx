@@ -6,7 +6,7 @@ export default function OverviewScreen() {
   const headerHeight = useHeaderHeight();
 
   return (
-    <View style={StyleSheet.compose(styles.container, { paddingTop: headerHeight })}>
+    <View style={StyleSheet.compose(styles.container, { paddingTop: headerHeight + 20 })}>
       <LinearGradient
         dither={false}
         colors={["#D99536", "#B77E2E", "#936525", "#69481A", "#452F11", "#191106", "#0D0903", "#060402", "#000000"]}
@@ -24,5 +24,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "flex-start",
+    padding: 20,
+    gap: 20,
   },
 });
