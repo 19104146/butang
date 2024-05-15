@@ -48,14 +48,24 @@ const dummyProducts = [
     name: "Monster",
     quantity: 420,
   },
+  {
+    id: 6,
+    categoryId: "1",
+    url: null,
+    name: "Robutusin",
+    quantity: 420,
+  },
 ];
 
 export default function InventoryScreen() {
   const headerHeight = useHeaderHeight();
 
   const [category, setCategory] = useState<string | null>(null);
+
   const filteredProducts = useMemo(() => {
-    if (!category) return dummyProducts;
+    if (!category) {
+      return dummyProducts;
+    }
 
     return dummyProducts.filter((product) => product.categoryId === category);
   }, [category]);
@@ -78,8 +88,8 @@ export default function InventoryScreen() {
           onChange={(item) => setCategory(item.value)}
           value={category}
           placeholder="All"
-          placeholderStyle={{ color: "#FFE9CB", fontSize: 20, fontWeight: 600 }}
-          selectedTextStyle={{ color: "#FFE9CB", fontSize: 20, fontWeight: 600 }}
+          placeholderStyle={styles.dropDownText}
+          selectedTextStyle={styles.dropDownText}
           containerStyle={{ borderColor: "#201E1B" }}
           iconColor="#FFE9CB"
           itemContainerStyle={{ backgroundColor: "#201E1B" }}
@@ -96,17 +106,9 @@ export default function InventoryScreen() {
             >
               <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
                 {item.url ? (
-                  <Image
-                    source={item.url}
-                    style={{ borderColor: "#FFE9CB", borderWidth: 1, borderRadius: 5, padding: 5 }}
-                  />
+                  <Image source={item.url} style={styles.image} />
                 ) : (
-                  <MaterialIcons
-                    name="photo"
-                    size={50}
-                    color="#FFE9CB"
-                    style={{ borderColor: "#FFE9CB", borderWidth: 1, borderRadius: 5, padding: 5 }}
-                  />
+                  <MaterialIcons name="photo" size={50} color="#FFE9CB" style={styles.image} />
                 )}
                 <Text style={{ color: "#FFE9CB" }}>{item.name}</Text>
               </View>
@@ -123,12 +125,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    padding: 20,
     gap: 20,
+    padding: 20,
   },
   innerContainer: {
     flex: 1,
-    width: "100%",
     gap: 10,
+    width: "100%",
+  },
+  dropDownText: {
+    color: "#FFE9CB",
+    fontSize: 20,
+    fontWeight: 200,
+  },
+  image: {
+    borderColor: "#FFE9CB",
+    borderRadius: 5,
+    borderWidth: 1,
+    padding: 5,
   },
 });
