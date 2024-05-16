@@ -19,7 +19,7 @@ export default function TabsLayout() {
         headerTitleStyle: {
           color: "#FFE9CB",
           fontSize: 32,
-          fontWeight: 600,
+          fontWeight: "600",
         },
         headerTransparent: true,
       }}
@@ -53,9 +53,8 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="more/index"
+        name="(more)"
         options={{
-          title: "More",
           tabBarIcon: ({ color }) => <MaterialIcons name="more-horiz" size={30} color={color} />,
           headerShown: false,
         }}
