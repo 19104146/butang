@@ -12,31 +12,36 @@ export const unstable_settings = {
   initialRouteName: "(tabs)",
 };
 
-SplashScreen.preventAutoHideAsync();
+// SplashScreen.preventAutoHideAsync();
 
 export default function AppLayout() {
-  const { success, error } = useMigrations(db, migrations);
-
-  useEffect(() => {
-    if (error) {
-      throw error;
-    }
-  }, [error]);
-
-  useEffect(() => {
-    if (success) {
-      SplashScreen.hideAsync();
-    }
-  }, [success]);
-
+  // const { success, error } = useMigrations(db, migrations);
+  // useEffect(() => {
+  //   if (error) {
+  //     throw error;
+  //   }
+  // }, [error]);
+  // useEffect(() => {
+  //   if (success) {
+  //     SplashScreen.hideAsync();
+  //   }
+  // }, [success]);
+  // return (
+  //   success && (
+  //     <>
+  //       <StatusBar style="light" />
+  //       <Stack>
+  //         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+  //       </Stack>
+  //     </>
+  //   )
+  // );
   return (
-    success && (
-      <>
-        <StatusBar style="light" />
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        </Stack>
-      </>
-    )
+    <>
+      <StatusBar style="light" />
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack>
+    </>
   );
 }
