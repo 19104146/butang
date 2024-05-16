@@ -25,3 +25,13 @@ export const products = sqliteTable("products", {
     .default(sql`CURRENT_TIMESTAMP`),
   updatedAt: text("updated_at").$onUpdate(() => sql`CURRENT_TIMESTAMP`),
 });
+
+export const activities = sqliteTable("activities", {
+  id: text("id")
+    .primaryKey()
+    .$default(() => createId()),
+  message: text("message").notNull(),
+  createdAt: text("created_at")
+    .notNull()
+    .default(sql`CURRENT_TIMESTAMP`),
+});
