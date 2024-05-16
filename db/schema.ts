@@ -3,7 +3,10 @@ import { sql } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const categories = sqliteTable("categories", {
-  name: text("name").primaryKey().notNull().unique(),
+  id: text("id")
+    .primaryKey()
+    .$default(() => createId()),
+  name: text("name").notNull().unique(),
 });
 
 export const products = sqliteTable("products", {
@@ -14,9 +17,9 @@ export const products = sqliteTable("products", {
   name: text("name").notNull().unique(),
   description: text("description").default("No description"),
   quantity: integer("quantity").notNull(),
-  category: text("category")
+  categoryId: text("category_id")
     .notNull()
-    .references(() => categories.name, { onDelete: "cascade" }),
+    .references(() => categories.id, { onDelete: "cascade" }),
   createdAt: text("created_at")
     .notNull()
     .default(sql`CURRENT_TIMESTAMP`),

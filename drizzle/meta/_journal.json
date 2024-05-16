@@ -8,6 +8,13 @@
       "when": 1715795346965,
       "tag": "0000_clumsy_giant_girl",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1715835708237,
+      "tag": "0001_chunky_banshee",
+      "breakpoints": true
     }
   ]
 }
