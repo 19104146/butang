@@ -1,6 +1,7 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
+import { Link } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -29,6 +30,7 @@ export default function MoreScreen() {
       </View>
 
       <View style={styles.sec2}>
+        <Link href="/muchmore/settings" style={styles.lenk}>
         <View style={styles.smolNav}>
           <LinearGradient
             dither={false}
@@ -38,9 +40,10 @@ export default function MoreScreen() {
             end={{ x: 0, y: 0 }}
             style={StyleSheet.compose(StyleSheet.absoluteFill, { borderRadius: 20 })}
           />
-          <MaterialIcons name="settings" size={36} color="#FFE9CB" />
-          <Text style={styles.text}>Settings</Text>
+            <MaterialIcons name="settings" size={36} color="#FFE9CB" />
+            <Text style={styles.text}>Settings</Text>
         </View>
+          </Link>
 
         <View style={styles.smolNav}>
           <LinearGradient
@@ -104,13 +107,15 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 20,
   },
-
+  lenk: {
+    width:"100%",
+  },
   text: {
     fontSize: 20,
     fontWeight: "700",
     color: "#FFE9CB",
-    alignSelf: "center",
-    marginLeft: 20,
+    marginLeft:20,
+    alignSelf:"center",
   },
   card: {
     width: "100%",
