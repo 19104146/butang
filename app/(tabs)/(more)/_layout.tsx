@@ -17,6 +17,7 @@ export default function MoreLayout() {
         },
         headerTransparent: true,
         headerShown: true,
+        animation:"none",
       }}
     >
       <Stack.Screen
@@ -24,7 +25,7 @@ export default function MoreLayout() {
         options={{
           headerShown: false,
         }}
-      />
+        />
       <Stack.Screen
         name="categories"
         options={{
@@ -47,6 +48,7 @@ export default function MoreLayout() {
         name="settings"
         options={{
           title: "Settings",
+         
         }}
       />
     </Stack>
