@@ -1,6 +1,12 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet, Text, View } from "react-native";
 
+const dummyCategories = [
+  { label: "All", value: null },
+  { label: "Medicine", value: "1" },
+  { label: "Beverage", value: "2" },
+];
+
 export default function Categories() {
   return (
     <View style={style.container}>
@@ -13,6 +19,9 @@ export default function Categories() {
         style={StyleSheet.absoluteFill}
       />
     </View>
+
+    
+
   );
 }
 
