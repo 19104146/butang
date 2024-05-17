@@ -1,6 +1,4 @@
-import { MaterialIcons } from "@expo/vector-icons";
 import { Stack } from "expo-router";
-import { StyleSheet, View } from "react-native";
 
 export default function MoreLayout() {
   return (
@@ -54,11 +52,3 @@ export default function MoreLayout() {
     </Stack>
   );
 }
-
-const styles = StyleSheet.create({
-  headerRightContainer: {
-    flexDirection: "row",
-    marginRight: 15.5,
-    gap: 20,
-  },
-});
