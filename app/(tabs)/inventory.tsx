@@ -90,10 +90,10 @@ export default function InventoryScreen() {
           placeholder="All"
           placeholderStyle={styles.dropDownText}
           selectedTextStyle={styles.dropDownText}
+          itemTextStyle={[styles.dropDownText,{fontSize:16}]}
           containerStyle={{ borderColor: "#201E1B" }}
           iconColor="#FFE9CB"
           itemContainerStyle={{ backgroundColor: "#201E1B" }}
-          itemTextStyle={{ color: "#FFE9CB" }}
           activeColor="#000"
           showsVerticalScrollIndicator
           autoScroll
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   dropDownText: {
     color: "#FFE9CB",
     fontSize: 20,
-    fontWeight: 200,
+    fontWeight: 500,
   },
   image: {
     borderColor: "#FFE9CB",
