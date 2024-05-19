@@ -2,6 +2,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
+import { Stack, Tabs } from "expo-router";
 import { useMemo, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
@@ -61,6 +62,7 @@ export default function InventoryScreen() {
   const headerHeight = useHeaderHeight();
 
   const [category, setCategory] = useState<string | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   const filteredProducts = useMemo(() => {
     if (!category) {
@@ -70,8 +72,21 @@ export default function InventoryScreen() {
     return dummyProducts.filter((product) => product.categoryId === category);
   }, [category]);
 
+  const toggleModal = () => setIsVisible((prev) => !prev);
+
   return (
     <View style={StyleSheet.compose(styles.container, { paddingTop: headerHeight + 20 })}>
+      <Tabs.Screen
+        options={{
+          headerRight: ({ tintColor }) => (
+            <View style={styles.headerRightContainer}>
+              <MaterialIcons name="search" size={24} color={tintColor} />
+              <MaterialIcons name="filter-list" size={24} color={tintColor} />
+              <MaterialIcons name="add-box" size={24} color={tintColor} onPress={toggleModal} />
+            </View>
+          ),
+        }}
+      />
       <LinearGradient
         dither={false}
         colors={["#D99536", "#B77E2E", "#936525", "#69481A", "#452F11", "#191106", "#0D0903", "#060402", "#000000"]}
@@ -90,7 +105,7 @@ export default function InventoryScreen() {
           placeholder="All"
           placeholderStyle={styles.dropDownText}
           selectedTextStyle={styles.dropDownText}
-          itemTextStyle={[styles.dropDownText,{fontSize:16}]}
+          itemTextStyle={[styles.dropDownText, { fontSize: 16 }]}
           containerStyle={{ borderColor: "#201E1B" }}
           iconColor="#FFE9CB"
           itemContainerStyle={{ backgroundColor: "#201E1B" }}
@@ -143,5 +158,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     padding: 5,
+  },
+  headerRightContainer: {
+    flexDirection: "row",
+    marginRight: 15.5,
+    gap: 20,
   },
 });

@@ -1,5 +1,6 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
+import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 export default function TabsLayout() {
@@ -36,13 +37,6 @@ export default function TabsLayout() {
         options={{
           title: "Inventory",
           tabBarIcon: ({ color }) => <MaterialIcons name="inventory" size={30} color={color} />,
-          headerRight: ({ tintColor }) => (
-            <View style={styles.headerRightContainer}>
-              <MaterialIcons name="search" size={24} color={tintColor} />
-              <MaterialIcons name="filter-list" size={24} color={tintColor} />
-              <MaterialIcons name="add-box" size={24} color={tintColor} />
-            </View>
-          ),
         }}
       />
       <Tabs.Screen
