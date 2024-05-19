@@ -51,7 +51,6 @@ export default function TabsLayout() {
         options={{
           tabBarIcon: ({ color }) => <MaterialIcons name="more-horiz" size={30} color={color} />,
           headerShown: false,
-          unmountOnBlur: true,
         }}
       />
     </Tabs>
