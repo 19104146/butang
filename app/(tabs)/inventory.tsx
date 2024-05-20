@@ -17,6 +17,8 @@ import {
 } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 
+import ItemModal from "@/components/ItemModal";
+
 const dummyCategories = [
   { label: "All", value: null },
   { label: "Medicine", value: "1" },
@@ -72,7 +74,9 @@ export default function InventoryScreen() {
   const headerHeight = useHeaderHeight();
 
   const [category, setCategory] = useState<string | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isItemVisible, setIsItemVisible] = useState<boolean>(false);
+  const [selectedItem, setSelectedItem] = useState<Item | null>(null);
 
   const filteredProducts = useMemo(() => {
     if (!category) {
@@ -83,6 +87,10 @@ export default function InventoryScreen() {
   }, [category]);
 
   const toggleModal = () => setIsVisible((prev) => !prev);
+  const toggleItemModal = (item: Item | null) => {
+    setSelectedItem(item);
+    setIsItemVisible((prev) => !prev);
+  };
 
   return (
     <SafeAreaView style={StyleSheet.compose(styles.container, { paddingTop: headerHeight + 20 })}>
@@ -177,6 +185,7 @@ export default function InventoryScreen() {
                       }}
                       placeholder="Quantity"
                       placeholderTextColor={"grey"}
+                      keyboardType="numeric"
                     />
                     <TextInput
                       style={{
@@ -192,6 +201,7 @@ export default function InventoryScreen() {
                       }}
                       placeholder="Low Limit"
                       placeholderTextColor={"grey"}
+                      keyboardType="numeric"
                     />
                   </View>
                   <TextInput
@@ -267,8 +277,9 @@ export default function InventoryScreen() {
         <FlatList
           data={filteredProducts}
           renderItem={({ item }) => (
-            <View
+            <Pressable
               style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}
+              onPress={() => toggleItemModal(item)}
             >
               <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
                 {item.url ? (
@@ -279,10 +290,11 @@ export default function InventoryScreen() {
                 <Text style={{ color: "#FFE9CB" }}>{item.name}</Text>
               </View>
               <Text style={{ color: "#FFE9CB" }}>{item.quantity}</Text>
-            </View>
+            </Pressable>
           )}
         />
       </View>
+      <ItemModal isItemVisible={isItemVisible} onClose={() => setIsItemVisible(false)} item={selectedItem} />
     </SafeAreaView>
   );
 }
