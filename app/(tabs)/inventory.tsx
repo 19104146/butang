@@ -1,9 +1,10 @@
+import { useMemo, useState } from "react";
+
 import { MaterialIcons } from "@expo/vector-icons";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { Tabs } from "expo-router";
-import { useMemo, useState } from "react";
 import {
   FlatList,
   KeyboardAvoidingView,

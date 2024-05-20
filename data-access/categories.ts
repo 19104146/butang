@@ -3,6 +3,9 @@ import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { categories } from "@/db/schema";
 
+export type Category = typeof categories.$inferSelect;
+export type NewCategory = typeof categories.$inferInsert;
+
 export async function listCategories() {
   return await db.select().from(categories);
 }

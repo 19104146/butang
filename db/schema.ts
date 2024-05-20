@@ -34,6 +34,7 @@ export const activities = sqliteTable("activities", {
   id: text("id")
     .primaryKey()
     .$default(() => createId()),
+  sender: text("sender").notNull(),
   message: text("message").notNull(),
   createdAt: text("created_at")
     .notNull()
