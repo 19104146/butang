@@ -2,20 +2,17 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
-import { Stack, Tabs } from "expo-router";
+import { Tabs } from "expo-router";
 import { useMemo, useState } from "react";
 import {
-  Button,
   FlatList,
   KeyboardAvoidingView,
   Modal,
   Pressable,
   SafeAreaView,
-  StatusBar,
   StyleSheet,
   Text,
   TextInput,
-  TouchableWithoutFeedback,
   View,
 } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";

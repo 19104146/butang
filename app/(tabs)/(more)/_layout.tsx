@@ -1,6 +1,6 @@
+import { MaterialIcons } from "@expo/vector-icons";
 import { Stack } from "expo-router";
 import { StyleSheet, View } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
 
 export default function MoreLayout() {
   return (
@@ -17,7 +17,7 @@ export default function MoreLayout() {
         },
         headerTransparent: true,
         headerShown: true,
-        animation:"none",
+        animation: "none",
       }}
     >
       <Stack.Screen
@@ -25,7 +25,7 @@ export default function MoreLayout() {
         options={{
           headerShown: false,
         }}
-        />
+      />
       <Stack.Screen
         name="categories"
         options={{
@@ -54,13 +54,11 @@ export default function MoreLayout() {
         name="settings"
         options={{
           title: "Settings",
-         
         }}
       />
     </Stack>
   );
 }
-
 
 const styles = StyleSheet.create({
   headerRightContainer: {

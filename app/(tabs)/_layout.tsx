@@ -1,7 +1,5 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-import { useState } from "react";
-import { StyleSheet, View } from "react-native";
 
 export default function TabsLayout() {
   return (
@@ -56,11 +54,3 @@ export default function TabsLayout() {
     </Tabs>
   );
 }
-
-const styles = StyleSheet.create({
-  headerRightContainer: {
-    flexDirection: "row",
-    marginRight: 15.5,
-    gap: 20,
-  },
-});

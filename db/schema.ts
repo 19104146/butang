@@ -7,13 +7,17 @@ export const categories = sqliteTable("categories", {
     .primaryKey()
     .$default(() => createId()),
   name: text("name").notNull().unique(),
+  createdAt: text("created_at")
+    .notNull()
+    .default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text("updated_at").$onUpdate(() => sql`CURRENT_TIMESTAMP`),
 });
 
 export const products = sqliteTable("products", {
   id: text("id")
     .primaryKey()
     .$default(() => createId()),
-  url: text("url"),
+  imageUrl: text("image_url"),
   name: text("name").notNull().unique(),
   description: text("description").default("No description"),
   quantity: integer("quantity").notNull(),

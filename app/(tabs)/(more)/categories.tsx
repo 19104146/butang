@@ -21,19 +21,31 @@ export default function Categories() {
         style={StyleSheet.absoluteFill}
       />
       {dummyCategories.map((Categories) => (
-        
-        <View key={Categories.label} style={{ flexDirection: "row", justifyContent: "space-between",alignContent:"center",margin:10, padding:10,paddingHorizontal:20,borderColor:"#D0D0D020",borderWidth:1,borderRadius:15}}>
+        <View
+          key={Categories.label}
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignContent: "center",
+            margin: 10,
+            padding: 10,
+            paddingHorizontal: 20,
+            borderColor: "#D0D0D020",
+            borderWidth: 1,
+            borderRadius: 15,
+          }}
+        >
           <LinearGradient
-          dither={false}
-          colors={["#925D11", "#6F4A16", "#573E1A", "#45351D", "#2D2922", "#201E1B"]}
-          locations={[0, 0.13, 0.29, 0.41, 0.68, 1]}
-          start={{ x: 1, y: 0 }}
-          end={{ x: 0, y: 0 }}
-          style={StyleSheet.compose(StyleSheet.absoluteFill, { borderRadius: 15 })}
-        />
+            dither={false}
+            colors={["#925D11", "#6F4A16", "#573E1A", "#45351D", "#2D2922", "#201E1B"]}
+            locations={[0, 0.13, 0.29, 0.41, 0.68, 1]}
+            start={{ x: 1, y: 0 }}
+            end={{ x: 0, y: 0 }}
+            style={StyleSheet.compose(StyleSheet.absoluteFill, { borderRadius: 15 })}
+          />
           <Text style={style.text}>{Categories.label}</Text>
-          <View style={{backgroundColor:"#6A655F" ,paddingHorizontal:10, alignSelf:"center",borderRadius:10}}>
-            <Text style={{fontSize:14,color:"#FFE9CB"}}>{Categories.value}</Text>
+          <View style={{ backgroundColor: "#6A655F", paddingHorizontal: 10, alignSelf: "center", borderRadius: 10 }}>
+            <Text style={{ fontSize: 14, color: "#FFE9CB" }}>{Categories.value}</Text>
           </View>
         </View>
       ))}

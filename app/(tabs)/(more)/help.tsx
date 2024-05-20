@@ -1,5 +1,5 @@
 import { LinearGradient } from "expo-linear-gradient";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 export default function Help() {
   return (
@@ -16,8 +16,8 @@ export default function Help() {
   );
 }
 
-const style= StyleSheet.create({
-  container:{
-    flex:1,
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
   },
 });

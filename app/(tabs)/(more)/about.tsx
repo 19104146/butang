@@ -1,12 +1,10 @@
-import { MaterialIcons } from "@expo/vector-icons";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
-import { Link } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const packageJson = require('@/package.json');
+const packageJson = require("@/package.json");
 
 export default function About() {
   const headerHeight = useHeaderHeight();
@@ -43,7 +41,9 @@ export default function About() {
       >
         <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
           <Text style={styles.text}>Version</Text>
-          <Text style={{ fontSize: 15, fontWeight: "400", color: "#E4E0D8" }}>{packageJson.stage} {packageJson.version}</Text>
+          <Text style={{ fontSize: 15, fontWeight: "400", color: "#E4E0D8" }}>
+            {packageJson.stage} {packageJson.version}
+          </Text>
         </View>
 
         <Text style={styles.text}>What's new</Text>
