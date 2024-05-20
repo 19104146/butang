@@ -54,8 +54,9 @@ export default function ActivityScreen() {
         style={StyleSheet.absoluteFill}
       />
       <View style={styles.innerContainer}>
-        {groupActivities.map((activities) => (
+        {groupActivities.map((activities, index) => (
           <LinearGradient
+            key={index}
             dither={false}
             colors={["#925D11", "#6F4A16", "#573E1A", "#45351D", "#2D2922", "#201E1B"]}
             locations={[0, 0.13, 0.29, 0.41, 0.68, 1]}
