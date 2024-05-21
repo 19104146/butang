@@ -263,15 +263,25 @@ export default function InventoryScreen() {
           onChange={(item) => setCategory(item.value)}
           value={category}
           placeholder="All"
-          placeholderStyle={styles.dropDownText}
+          placeholderStyle={[styles.dropDownText]}
           selectedTextStyle={styles.dropDownText}
-          itemTextStyle={[styles.dropDownText, { fontSize: 16 }]}
-          containerStyle={{ borderColor: "#201E1B" }}
+          itemTextStyle={[styles.dropDownText, { fontSize: 16, borderRadius: 16 }]}
+          containerStyle={{
+            borderColor: "#161615",
+            padding: 4,
+            borderRadius: 20,
+            backgroundColor: "#111111",
+            borderWidth: 1,
+          }}
+          inputSearchStyle={{ borderRadius: 20, borderColor: "#585147", color: "#FFE9CB", backgroundColor: "#111111" }}
           iconColor="#FFE9CB"
-          itemContainerStyle={{ backgroundColor: "#201E1B" }}
-          activeColor="#000"
+          itemContainerStyle={{ backgroundColor: "#161615", margin: 4, borderRadius: 16 }}
+          activeColor="#936525"
+          search={true}
+          searchPlaceholder="Search..."
           showsVerticalScrollIndicator
           autoScroll
+          
         />
         <FlatList
           data={filteredProducts}
