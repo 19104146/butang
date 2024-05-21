@@ -28,29 +28,31 @@ export default function InventoryScreen() {
 
   const [category, setCategory] = useState<string>("none");
   const [categories, setCategories] = useState<Category[] | null>();
+  const [modalCategories, setModalCategories] = useState<Category[]>([]);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isItemVisible, setIsItemVisible] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<Product | null>(null);
-  const [product, setProduct] = useState<NewProduct | null>(null);
+  const [product, setProduct] = useState<NewProduct>({ categoryId: "", name: "", quantity: 0 });
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const fetchedProducts = await listProducts();
       const fetchedCategories = await listCategories();
+      const fetchedModalCategories = await listCategories();
 
-      fetchedCategories.unshift({ id: "none", name: "All", createdAt: "", updatedAt: null });
+      setModalCategories(fetchedModalCategories);
+
+      if (fetchedCategories.length > 0) {
+        fetchedCategories.unshift({ id: "none", name: "All", createdAt: "", updatedAt: null });
+      }
 
       setProducts(fetchedProducts);
       setCategories(fetchedCategories);
     };
 
     fetchData();
-
-    const intervalId = setInterval(fetchData, 5000);
-
-    return () => clearInterval(intervalId);
-  },[]);
+  }, [isVisible, isItemVisible]);
 
   const filteredProducts = useMemo(() => {
     if (category === "none") {
@@ -79,8 +81,6 @@ export default function InventoryScreen() {
         options={{
           headerRight: ({ tintColor }) => (
             <View style={styles.headerRightContainer}>
-              <MaterialIcons name="search" size={24} color={tintColor} />
-              <MaterialIcons name="filter-list" size={24} color={tintColor} />
               <MaterialIcons name="add-box" size={24} color={tintColor} onPress={toggleModal} />
             </View>
           ),
@@ -175,37 +175,54 @@ export default function InventoryScreen() {
                       onChangeText={(newText) => handleInputChange("lowLimit", newText)}
                     />
                   </View>
-                  <Dropdown
-                    data={categories!}
-                    labelField="name"
-                    valueField="id"
-                    onChange={(item) => handleInputChange("categoryId", item.id)}
-                    value={category}
-                    placeholder="Add Category"
-                    placeholderStyle={[styles.dropDownText]}
-                    selectedTextStyle={styles.dropDownText}
-                    itemTextStyle={[styles.dropDownText, { fontSize: 16, borderRadius: 16 }]}
-                    containerStyle={{
-                      borderColor: "#161615",
-                      padding: 4,
-                      borderRadius: 20,
-                      backgroundColor: "#111111",
-                      borderWidth: 1,
-                    }}
-                    iconColor="#FFE9CB"
-                    itemContainerStyle={{ backgroundColor: "#161615", margin: 4, borderRadius: 16 }}
-                    activeColor="#936525"
-                    showsVerticalScrollIndicator
-                    autoScroll
-                    style={{
-                      width: "90%",
-                      paddingHorizontal: 25,
-                      borderColor: "rgba(255, 255, 255, .3)",
-                      borderWidth: 1,
-                      marginHorizontal: 60,
-                      borderRadius: 10,
-                    }}
-                  />
+                  {modalCategories.length > 0 ? (
+                    <Dropdown
+                      data={modalCategories}
+                      labelField="name"
+                      valueField="id"
+                      onChange={(item) => handleInputChange("categoryId", item.id)}
+                      value={null}
+                      placeholder="Categories"
+                      placeholderStyle={styles.dropDownText}
+                      selectedTextStyle={styles.dropDownText}
+                      itemTextStyle={[styles.dropDownText, { fontSize: 16, borderRadius: 16 }]}
+                      containerStyle={{
+                        borderColor: "#161615",
+                        padding: 4,
+                        borderRadius: 20,
+                        backgroundColor: "#111111",
+                        borderWidth: 1,
+                      }}
+                      iconColor="#FFE9CB"
+                      itemContainerStyle={{ backgroundColor: "#161615", margin: 4, borderRadius: 16 }}
+                      activeColor="#936525"
+                      showsVerticalScrollIndicator
+                      autoScroll
+                      style={{
+                        width: "90%",
+                        paddingHorizontal: 25,
+                        borderColor: "rgba(255, 255, 255, .3)",
+                        borderWidth: 1,
+                        marginHorizontal: 60,
+                        borderRadius: 10,
+                      }}
+                    />
+                  ) : (
+                    <TextInput
+                      style={{
+                        fontSize: 14,
+                        height: 40,
+                        width: "90%",
+                        marginBottom: 10,
+                        fontWeight: "200",
+                        paddingLeft: 10,
+                        textAlign: "center",
+                      }}
+                      placeholder="Go to more/categories to add a category"
+                      placeholderTextColor="red"
+                      onChangeText={(newText) => handleInputChange("name", newText)}
+                    />
+                  )}
                 </View>
                 <View style={styles.rowContainer}>
                   <Pressable
@@ -232,7 +249,8 @@ export default function InventoryScreen() {
                       justifyContent: "center",
                     }}
                     onPress={async () => {
-                      if (product) {
+                      console.log(product);
+                      if (product.categoryId !== "" && product.name !== "") {
                         try {
                           await createProduct(product);
                           await createActivity({
