@@ -113,7 +113,7 @@ export default function InventoryScreen() {
                   <Text style={{ color: "#FFE9CB", fontSize: 36, fontWeight: "bold" }}>Add Item</Text>
                 </View>
                 <MaterialIcons name="image" size={150} color="#FFE9CB" />
-                <View style={{ width: "100%", height: 200, alignItems: "center" }}>
+                <View style={{ width: "100%", alignItems: "center" }}>
                   <TextInput
                     style={{
                       fontSize: 20,
@@ -328,7 +328,7 @@ const styles = StyleSheet.create({
   modalView: {
     display: "flex",
     width: "90%",
-    height: 470,
+    height: 420,
     backgroundColor: "#201E1B",
     borderRadius: 20,
     padding: 35,
@@ -348,13 +348,13 @@ const styles = StyleSheet.create({
     width: "100%",
     gap: 20,
     justifyContent: "flex-end",
-    height: 50,
+    height: "15%",
     alignItems: "flex-end",
     paddingHorizontal: 10,
   },
   formView: {
     width: "100%",
-    height: "75%",
+    height: "85%",
     alignItems: "center",
     justifyContent: "flex-start",
   },

@@ -25,7 +25,6 @@ const CategoryModal = ({ isVisible, category, onClose }: categoryModalProps): JS
       ...prev!,
       [field]: value,
     }));
-    console.log(categories?.name);
   };
 
   const handleDelete = async (categoryId?: string) => {
@@ -123,7 +122,6 @@ const CategoryModal = ({ isVisible, category, onClose }: categoryModalProps): JS
                           sender: "User",
                           message: `Updated "${category.name}" to "${categories.name}"`,
                         });
-                        console.log("successfully updated");
                       } catch (error) {
                         console.error(error);
                       }
