@@ -64,8 +64,7 @@ const CategoryModal = ({ isVisible, category, onClose }: categoryModalProps): JS
               >
                 <Text style={{ color: "#FFE9CB", fontSize: 36, fontWeight: "bold" }}>Add Category</Text>
               </View>
-              <MaterialIcons name="image" size={150} color="#FFE9CB" />
-              <View style={{ width: "100%", height: 200, alignItems: "center" }}>
+              <View style={{ width: "100%", alignItems: "center", flex: 1, justifyContent: "center" }}>
                 <TextInput
                   style={{
                     fontSize: 20,
@@ -166,7 +165,7 @@ const style = StyleSheet.create({
   modalView: {
     display: "flex",
     width: "90%",
-    height: 300,
+    height: 200,
     backgroundColor: "#201E1B",
     borderRadius: 20,
     padding: 35,
@@ -183,7 +182,7 @@ const style = StyleSheet.create({
   },
   formView: {
     width: "100%",
-    height: "85%",
+    height: "75%",
     alignItems: "center",
     justifyContent: "flex-start",
   },
@@ -192,7 +191,7 @@ const style = StyleSheet.create({
     width: "100%",
     gap: 20,
     justifyContent: "space-between",
-    height: "15%",
+    height: "25%",
     alignItems: "center",
     paddingHorizontal: 10,
     paddingBottom: 5,
