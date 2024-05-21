@@ -21,7 +21,7 @@ export default function ActivityScreen() {
 
     fetchData();
 
-    const intervalId = setInterval(fetchData, 3000); // Fetch every 3 seconds
+    const intervalId = setInterval(fetchData, 10000);
 
     return () => clearInterval(intervalId);
   }, []);

@@ -220,7 +220,7 @@ export default function InventoryScreen() {
                           await createProduct(product);
                           await createActivity({
                             sender: "User",
-                            message: `Added ${product.quantity} ${product.name}`,
+                            message: `Added ${product.quantity} "${product.name}"`,
                           });
                         } catch (error: any) {
                           console.error(error);

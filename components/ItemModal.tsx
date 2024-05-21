@@ -4,7 +4,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { KeyboardAvoidingView, Modal, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
-import { deleteProduct, NewProduct, Product, updateProduct } from "@/data-access/products";
+import { createActivity } from "@/data-access/activities";
+import { deleteProduct, NewProduct, updateProduct } from "@/data-access/products";
 
 interface itemModalProps {
   isItemVisible: boolean;
@@ -27,9 +28,13 @@ const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Elemen
     console.log(product);
   };
 
-  const handleDelete = (productId?: string) => {
+  const handleDelete = async (productId?: string) => {
     if (productId) {
-      deleteProduct(productId);
+      await deleteProduct(productId);
+      await createActivity({
+        sender: "User",
+        message: `Deleted "${item?.name}"`,
+      });
       onClose();
     } else {
       console.error("Product ID is undefined. Cannot delete.");
