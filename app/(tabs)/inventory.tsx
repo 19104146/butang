@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { useHeaderHeight } from "@react-navigation/elements";
@@ -20,14 +20,14 @@ import { Dropdown } from "react-native-element-dropdown";
 
 import ItemModal from "@/components/ItemModal";
 import { createActivity } from "@/data-access/activities";
+import { Category, listCategories } from "@/data-access/categories";
 import { createProduct, listProducts, NewProduct, Product } from "@/data-access/products";
-
-import { CategoriesContext } from "./_layout";
 
 export default function InventoryScreen() {
   const headerHeight = useHeaderHeight();
 
   const [category, setCategory] = useState<string | null>(null);
+  const [categories, setCategories] = useState<Category[] | null>();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isItemVisible, setIsItemVisible] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<Product | null>(null);
@@ -37,22 +37,28 @@ export default function InventoryScreen() {
   useEffect(() => {
     const fetchData = async () => {
       const fetchedProducts = await listProducts();
+      const fetchedCategories = await listCategories();
+
+      fetchedCategories.unshift({ id: "none", name: "All", createdAt: "", updatedAt: null });
+
       setProducts(fetchedProducts);
+      setCategories(fetchedCategories);
     };
 
     fetchData();
+
+    const intervalId = setInterval(fetchData, 5000);
+
+    return () => clearInterval(intervalId);
   }, [isVisible, isItemVisible]);
 
   const filteredProducts = useMemo(() => {
-    if (!category) {
+    if (category === "none") {
       return products;
     }
 
     return products.filter((product) => product.categoryId === category);
   }, [category, products]);
-
-  const dummyCategoriesContext = useContext(CategoriesContext);
-  const dummyCategories = [{ id: null, name: "All", createdAt: "", updatedAt: "" }, ...dummyCategoriesContext!];
 
   const toggleModal = () => setIsVisible((prev) => !prev);
   const toggleItemModal = (item: Product | null) => {
@@ -240,7 +246,7 @@ export default function InventoryScreen() {
       </Modal>
       <View style={styles.innerContainer}>
         <Dropdown
-          data={dummyCategories ? dummyCategories : [{ id: "0", name: "No data", createdAt: "", updatedAt: "" }]}
+          data={categories ? categories : [{ id: "0", name: "No data", createdAt: "", updatedAt: "" }]}
           labelField="name"
           valueField="id"
           searchField="name"

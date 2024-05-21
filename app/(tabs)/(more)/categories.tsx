@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { useHeaderHeight } from "@react-navigation/elements";
