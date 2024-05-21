@@ -1,16 +1,32 @@
+import { useEffect, useState } from "react";
+
 import { MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { KeyboardAvoidingView, Modal, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
-import { deleteProduct, Product } from "@/data-access/products";
+import { deleteProduct, NewProduct, Product, updateProduct } from "@/data-access/products";
 
 interface itemModalProps {
   isItemVisible: boolean;
-  item: Product | null;
+  item: NewProduct | null;
   onClose: () => void;
 }
 
 const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Element => {
+  const [product, setProduct] = useState<NewProduct | null>(item);
+
+  useEffect(() => {
+    setProduct(item);
+  }, [item]);
+
+  const handleInputChange = (field: keyof NewProduct, value: NewProduct[keyof NewProduct]) => {
+    setProduct((prev) => ({
+      ...prev!,
+      [field]: value,
+    }));
+    console.log(product);
+  };
+
   const handleDelete = (productId?: string) => {
     if (productId) {
       deleteProduct(productId);
@@ -61,7 +77,8 @@ const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Elemen
                   }}
                   placeholder="Name"
                   placeholderTextColor={"grey"}
-                  value={item?.name}
+                  value={product?.name}
+                  onChangeText={(text) => handleInputChange("name", text)}
                 />
                 <TextInput
                   style={{
@@ -94,7 +111,8 @@ const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Elemen
                     placeholder="Quantity"
                     placeholderTextColor={"grey"}
                     keyboardType="numeric"
-                    value={item?.quantity.toString()}
+                    value={product?.quantity?.toString()}
+                    onChangeText={(text) => handleInputChange("quantity", parseInt(text))}
                   />
                   <TextInput
                     style={{
@@ -128,6 +146,7 @@ const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Elemen
                   }}
                   placeholder="Category"
                   placeholderTextColor={"grey"}
+                  onChangeText={(text) => handleInputChange("categoryId", "1")}
                 >
                   <MaterialIcons name="keyboard-arrow-down" size={24} color="#FFE9CB" />
                 </TextInput>
@@ -160,8 +179,23 @@ const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Elemen
                       alignItems: "center",
                       justifyContent: "center",
                     }}
+                    onPress={async () => {
+                      if (product && item?.id) {
+                        const updatedProduct = {
+                          ...product,
+                          id: item.id,
+                        };
+
+                        try {
+                          await updateProduct(updatedProduct);
+                          onClose();
+                        } catch (error) {
+                          console.error("Error updating product:", error);
+                        }
+                      }
+                    }}
                   >
-                    <Text style={{ color: "black", fontSize: 18, fontWeight: "600" }}>Confirm</Text>
+                    <Text style={{ color: "black", fontSize: 18, fontWeight: "600" }}>Update</Text>
                   </Pressable>
                 </View>
               </View>
