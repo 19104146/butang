@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { useHeaderHeight } from "@react-navigation/elements";
@@ -19,42 +19,9 @@ import {
 import { Dropdown } from "react-native-element-dropdown";
 
 import ItemModal from "@/components/ItemModal";
-import { Product } from "@/data-access/products";
+import { createProduct, listProducts, NewProduct, Product } from "@/data-access/products";
 
 import { CategoriesContext } from "./_layout";
-
-const dummyProducts = [
-  {
-    id: "1",
-    name: "Biogesic",
-    imageUrl: null,
-    description: null,
-    quantity: 69,
-    createdAt: "2024-05-16T15:49:26.978Z",
-    updatedAt: null,
-    categoryId: "1",
-  },
-  {
-    id: "2",
-    name: "Yakult",
-    imageUrl: null,
-    description: null,
-    quantity: 420,
-    createdAt: "2024-05-16T15:49:26.978Z",
-    updatedAt: null,
-    categoryId: "2",
-  },
-  {
-    id: "3",
-    imageUrl: null,
-    name: "Dr. Pepper",
-    description: null,
-    quantity: 420,
-    createdAt: "2024-05-16T15:49:26.978Z",
-    updatedAt: null,
-    categoryId: "2",
-  },
-];
 
 export default function InventoryScreen() {
   const headerHeight = useHeaderHeight();
@@ -63,14 +30,30 @@ export default function InventoryScreen() {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isItemVisible, setIsItemVisible] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<Product | null>(null);
+  const [product, setProduct] = useState<NewProduct | null>(null);
+
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedProducts = await listProducts();
+      setProducts(fetchedProducts);
+    };
+
+    fetchData();
+
+    const intervalId = setInterval(fetchData, 5000); // Fetch every 5 seconds
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   const filteredProducts = useMemo(() => {
     if (!category) {
-      return dummyProducts;
+      return products;
     }
 
-    return dummyProducts.filter((product) => product.categoryId === category);
-  }, [category]);
+    return products.filter((product) => product.categoryId === category);
+  }, [category, products]);
 
   const dummyCategoriesContext = useContext(CategoriesContext);
   const dummyCategories = [{ id: null, name: "All", createdAt: "", updatedAt: "" }, ...dummyCategoriesContext!];
@@ -155,6 +138,7 @@ export default function InventoryScreen() {
                       marginBottom: 10,
                       fontWeight: "200",
                       paddingLeft: 10,
+                      color: "white",
                     }}
                     placeholder="Description"
                     placeholderTextColor={"grey"}
@@ -171,6 +155,7 @@ export default function InventoryScreen() {
                         marginBottom: 10,
                         fontWeight: "200",
                         paddingLeft: 10,
+                        color: "white",
                       }}
                       placeholder="Quantity"
                       placeholderTextColor={"grey"}
@@ -187,6 +172,7 @@ export default function InventoryScreen() {
                         marginBottom: 10,
                         fontWeight: "200",
                         paddingLeft: 10,
+                        color: "white",
                       }}
                       placeholder="Low Limit"
                       placeholderTextColor={"grey"}
@@ -205,6 +191,7 @@ export default function InventoryScreen() {
                       fontWeight: "200",
                       paddingLeft: 10,
                       alignItems: "flex-end",
+                      color: "white",
                     }}
                     placeholder="Category"
                     placeholderTextColor={"grey"}
@@ -236,6 +223,10 @@ export default function InventoryScreen() {
                       alignItems: "center",
                       justifyContent: "center",
                     }}
+                    onPress={async () => {
+                      console.log("Hello, world");
+                      toggleModal();
+                    }}
                   >
                     <Text style={{ color: "black", fontSize: 18, fontWeight: "600" }}>Confirm</Text>
                   </Pressable>
@@ -250,6 +241,7 @@ export default function InventoryScreen() {
           data={dummyCategories ? dummyCategories : [{ id: "0", name: "No data", createdAt: "", updatedAt: "" }]}
           labelField="name"
           valueField="id"
+          searchField="name"
           onChange={(item) => setCategory(item.id)}
           value={category}
           placeholder="All"
