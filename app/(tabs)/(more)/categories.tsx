@@ -9,8 +9,6 @@ import { KeyboardAvoidingView, Modal, Pressable, StyleSheet, Text, TextInput, Vi
 import CategoryModal from "@/components/categoryModal";
 import { createCategory, listCategories, NewCategory } from "@/data-access/categories";
 
-import { CategoriesContext } from "../_layout";
-
 export default function Categories() {
   const headerHeight = useHeaderHeight();
   const [isVisible, setIsVisible] = useState<boolean>(false);

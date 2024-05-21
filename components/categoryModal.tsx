@@ -88,47 +88,52 @@ const CategoryModal = ({ isVisible, category, onClose }: categoryModalProps): JS
               </View>
             </View>
             <View style={style.rowContainer}>
-              <Pressable
-                onPress={onClose}
-                style={{
-                  borderWidth: 2,
-                  borderRadius: 20,
-                  borderColor: "#EC8A8D",
-                  width: 77,
-                  height: 35,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Text style={{ color: "#EC8A8D", fontSize: 18, fontWeight: "600" }}>Cancel</Text>
+              <Pressable onPress={() => handleDelete(categories?.id)}>
+                <MaterialIcons name="delete" size={35} color="#EC8A8D" />
               </Pressable>
-              <Pressable
-                style={{
-                  borderRadius: 20,
-                  backgroundColor: "#22A969",
-                  width: 95,
-                  height: 35,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                onPress={async () => {
-                  if (category && category.id) {
-                    try {
-                      await updateCategory(category.id, category.name);
-                      await createActivity({
-                        sender: "User",
-                        message: `Updated "${category.name}"`,
-                      });
-                      console.log("successfully updated");
-                    } catch (error) {
-                      console.error(error);
+              <View style={{ flexDirection: "row", gap: 5 }}>
+                <Pressable
+                  onPress={onClose}
+                  style={{
+                    borderWidth: 2,
+                    borderRadius: 20,
+                    borderColor: "#EC8A8D",
+                    width: 77,
+                    height: 35,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text style={{ color: "#EC8A8D", fontSize: 18, fontWeight: "600" }}>Cancel</Text>
+                </Pressable>
+                <Pressable
+                  style={{
+                    borderRadius: 20,
+                    backgroundColor: "#22A969",
+                    width: 95,
+                    height: 35,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  onPress={async () => {
+                    if (categories && categories.id && category) {
+                      try {
+                        await updateCategory(categories.id, categories.name);
+                        await createActivity({
+                          sender: "User",
+                          message: `Updated "${category.name}" to "${categories.name}"`,
+                        });
+                        console.log("successfully updated");
+                      } catch (error) {
+                        console.error(error);
+                      }
                     }
-                  }
-                  onClose();
-                }}
-              >
-                <Text style={{ color: "black", fontSize: 18, fontWeight: "600" }}>Update</Text>
-              </Pressable>
+                    onClose();
+                  }}
+                >
+                  <Text style={{ color: "black", fontSize: 18, fontWeight: "600" }}>Update</Text>
+                </Pressable>
+              </View>
             </View>
           </LinearGradient>
         </KeyboardAvoidingView>
@@ -188,7 +193,7 @@ const style = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     gap: 20,
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
     height: "15%",
     alignItems: "center",
     paddingHorizontal: 10,
