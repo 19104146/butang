@@ -5,7 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { KeyboardAvoidingView, Modal, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 import { createActivity } from "@/data-access/activities";
-import { deleteProduct, NewProduct, updateProduct } from "@/data-access/products";
+import { deleteProduct, updateProduct, type NewProduct } from "@/data-access/products";
 
 interface itemModalProps {
   isItemVisible: boolean;
@@ -85,21 +85,6 @@ const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Elemen
                   value={product?.name}
                   onChangeText={(text) => handleInputChange("name", text)}
                 />
-                <TextInput
-                  style={{
-                    fontSize: 20,
-                    height: 40,
-                    width: "90%",
-                    borderColor: "rgba(255, 255, 255, .3)",
-                    borderWidth: 1,
-                    borderRadius: 10,
-                    marginBottom: 10,
-                    fontWeight: "200",
-                    paddingLeft: 10,
-                  }}
-                  placeholder="Description"
-                  placeholderTextColor={"grey"}
-                />
                 <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 15 }}>
                   <TextInput
                     style={{
@@ -112,12 +97,13 @@ const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Elemen
                       marginBottom: 10,
                       fontWeight: "200",
                       paddingLeft: 10,
+                      color: "white",
                     }}
                     placeholder="Quantity"
                     placeholderTextColor={"grey"}
                     keyboardType="numeric"
                     value={product?.quantity?.toString()}
-                    onChangeText={(text) => handleInputChange("quantity", parseInt(text))}
+                    onChangeText={(text) => handleInputChange("quantity", text)}
                   />
                   <TextInput
                     style={{
@@ -130,10 +116,13 @@ const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Elemen
                       marginBottom: 10,
                       fontWeight: "200",
                       paddingLeft: 10,
+                      color: "white",
                     }}
                     placeholder="Low Limit"
                     placeholderTextColor={"grey"}
                     keyboardType="numeric"
+                    value={product?.lowLimit?.toString()}
+                    onChangeText={(text) => handleInputChange("lowLimit", text)}
                   />
                 </View>
                 <TextInput
@@ -193,10 +182,15 @@ const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Elemen
 
                         try {
                           await updateProduct(updatedProduct);
-                          onClose();
+                          await createActivity({
+                            sender: "User",
+                            message: `Updated "${item?.name}"`,
+                          });
                         } catch (error) {
                           console.error("Error updating product:", error);
                         }
+
+                        onClose();
                       }
                     }}
                   >
