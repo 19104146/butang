@@ -50,7 +50,7 @@ export default function InventoryScreen() {
     const intervalId = setInterval(fetchData, 5000);
 
     return () => clearInterval(intervalId);
-  }, [isVisible, isItemVisible]);
+  },[]);
 
   const filteredProducts = useMemo(() => {
     if (category === "none") {
@@ -175,26 +175,37 @@ export default function InventoryScreen() {
                       onChangeText={(newText) => handleInputChange("lowLimit", newText)}
                     />
                   </View>
-                  <TextInput
+                  <Dropdown
+                    data={categories!}
+                    labelField="name"
+                    valueField="id"
+                    onChange={(item) => handleInputChange("categoryId", item.id)}
+                    value={category}
+                    placeholder="Add Category"
+                    placeholderStyle={[styles.dropDownText]}
+                    selectedTextStyle={styles.dropDownText}
+                    itemTextStyle={[styles.dropDownText, { fontSize: 16, borderRadius: 16 }]}
+                    containerStyle={{
+                      borderColor: "#161615",
+                      padding: 4,
+                      borderRadius: 20,
+                      backgroundColor: "#111111",
+                      borderWidth: 1,
+                    }}
+                    iconColor="#FFE9CB"
+                    itemContainerStyle={{ backgroundColor: "#161615", margin: 4, borderRadius: 16 }}
+                    activeColor="#936525"
+                    showsVerticalScrollIndicator
+                    autoScroll
                     style={{
-                      fontSize: 20,
-                      height: 40,
                       width: "90%",
+                      paddingHorizontal: 25,
                       borderColor: "rgba(255, 255, 255, .3)",
                       borderWidth: 1,
+                      marginHorizontal: 60,
                       borderRadius: 10,
-                      marginBottom: 10,
-                      fontWeight: "200",
-                      paddingLeft: 10,
-                      alignItems: "flex-end",
-                      color: "white",
                     }}
-                    placeholder="Category"
-                    placeholderTextColor={"grey"}
-                    onChangeText={() => handleInputChange("categoryId", "1")}
-                  >
-                    <MaterialIcons name="keyboard-arrow-down" size={24} color="#FFE9CB" />
-                  </TextInput>
+                  />
                 </View>
                 <View style={styles.rowContainer}>
                   <Pressable
@@ -249,7 +260,6 @@ export default function InventoryScreen() {
           data={categories ? categories : [{ id: "0", name: "No data", createdAt: "", updatedAt: "" }]}
           labelField="name"
           valueField="id"
-          searchField="name"
           onChange={(item) => setCategory(item.id)}
           value={category}
           placeholder="All"
@@ -263,12 +273,9 @@ export default function InventoryScreen() {
             backgroundColor: "#111111",
             borderWidth: 1,
           }}
-          inputSearchStyle={{ borderRadius: 20, borderColor: "#585147", color: "#FFE9CB", backgroundColor: "#111111" }}
           iconColor="#FFE9CB"
           itemContainerStyle={{ backgroundColor: "#161615", margin: 4, borderRadius: 16 }}
           activeColor="#936525"
-          search={true}
-          searchPlaceholder="Search..."
           showsVerticalScrollIndicator
           autoScroll
         />
