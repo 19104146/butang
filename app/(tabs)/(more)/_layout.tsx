@@ -30,12 +30,6 @@ export default function MoreLayout() {
         name="categories"
         options={{
           title: "Categories",
-          headerRight: ({ tintColor }) => (
-            <View style={styles.headerRightContainer}>
-              <MaterialIcons name="search" size={24} color={tintColor} />
-              <MaterialIcons name="add-box" size={24} color={tintColor} />
-            </View>
-          ),
         }}
       />
       <Stack.Screen
@@ -59,11 +53,3 @@ export default function MoreLayout() {
     </Stack>
   );
 }
-
-const styles = StyleSheet.create({
-  headerRightContainer: {
-    flexDirection: "row",
-    marginRight: 15.5,
-    gap: 20,
-  },
-});

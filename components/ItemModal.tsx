@@ -25,7 +25,6 @@ const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Elemen
       ...prev!,
       [field]: value,
     }));
-    console.log(product);
   };
 
   const handleDelete = async (productId?: string) => {
@@ -189,7 +188,6 @@ const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Elemen
                         } catch (error) {
                           console.error("Error updating product:", error);
                         }
-
                         onClose();
                       }
                     }}
