@@ -26,7 +26,7 @@ import { createProduct, listProducts, NewProduct, Product } from "@/data-access/
 export default function InventoryScreen() {
   const headerHeight = useHeaderHeight();
 
-  const [category, setCategory] = useState<string | null>(null);
+  const [category, setCategory] = useState<string>("none");
   const [categories, setCategories] = useState<Category[] | null>();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isItemVisible, setIsItemVisible] = useState<boolean>(false);

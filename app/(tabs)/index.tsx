@@ -2,17 +2,10 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { LinearGradient } from "expo-linear-gradient";
-import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 
-const items = [
-  { name: "Biogesic", quantity: 10 },
-  { name: "Biogesic", quantity: 5 },
-  { name: "Biogesic", quantity: 2 },
-  { name: "Biogesic", quantity: 1 },
-  { name: "Biogesic", quantity: 0 },
-  { name: "Biogesic", quantity: 0 },
-  { name: "Biogesic", quantity: 0 },
-];
+import LowStocks from "@/components/LowStocks";
+import RecentActivity from "@/components/RecentActivity";
 
 export default function OverviewScreen() {
   const headerHeight = useHeaderHeight();
@@ -30,49 +23,8 @@ export default function OverviewScreen() {
         end={{ x: 1, y: 0.5 }}
         style={StyleSheet.absoluteFill}
       />
-      <LinearGradient
-        dither={false}
-        colors={["#925D11", "#6F4A16", "#573E1A", "#45351D", "#2D2922", "#201E1B"]}
-        locations={[0, 0.13, 0.29, 0.41, 0.68, 1]}
-        start={{ x: 1, y: 0 }}
-        end={{ x: 0, y: 1 }}
-        style={styles.lowStockView}
-      >
-        <View style={styles.viewHeader}>
-          <MaterialIcons name="warning-amber" size={22} color="#FF6C4B" />
-          <Text style={styles.headerText}>Low Stocks</Text>
-        </View>
-        <View style={styles.itemContainer}>
-          <FlatList
-            data={items}
-            renderItem={({ item }) => (
-              <View style={{ flexDirection: "row", justifyContent: "space-between", marginVertical: 8 }}>
-                <Text style={styles.contentText}>{item.name}</Text>
-                <Text style={styles.contentText}>{item.quantity}</Text>
-              </View>
-            )}
-            showsVerticalScrollIndicator={true}
-            overScrollMode="never"
-            persistentScrollbar={true}
-            keyExtractor={(_, index) => index.toString()}
-            contentContainerStyle={{ paddingHorizontal: 10 }}
-          />
-        </View>
-      </LinearGradient>
-      <LinearGradient
-        dither={false}
-        colors={["#925D11", "#6F4A16", "#573E1A", "#45351D", "#2D2922", "#201E1B"]}
-        locations={[0, 0.13, 0.29, 0.41, 0.68, 1]}
-        start={{ x: 1, y: 0 }}
-        end={{ x: 0, y: 1 }}
-        style={[styles.lowStockView, { height: "20%" }]}
-      >
-        <Text style={styles.headerText}>Recent Activity</Text>
-        <View style={{ paddingVertical: 7 }}>
-          <Text style={[styles.contentText]}>(User) added Biogesic to Food</Text>
-          <Text style={{ color: "#8A8A8A" }}>7:05AM</Text>
-        </View>
-      </LinearGradient>
+      <LowStocks />
+      <RecentActivity />
       <View style={{ flexDirection: "row", flexWrap: "wrap", height: "auto", flex: 1, gap: 20 }}>
         <View style={{ flex: 1, gap: 15 }}>
           <LinearGradient

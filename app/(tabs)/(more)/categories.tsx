@@ -6,7 +6,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Stack } from "expo-router";
 import { KeyboardAvoidingView, Modal, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
-import CategoryModal from "@/components/categoryModal";
+import CategoryModal from "@/components/CategoryModal";
 import { createCategory, listCategories, NewCategory } from "@/data-access/categories";
 
 export default function Categories() {
