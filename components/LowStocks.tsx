@@ -38,7 +38,7 @@ export default function LowStocks() {
       </View>
       <View style={styles.itemContainer}>
         {filteredProducts.length === 0 ? (
-          <Text style={{ color: "white" }}>No low stocks!</Text>
+          <Text style={{ color: "grey" }}>No low stocks!</Text>
         ) : (
           <FlatList
             data={filteredProducts}
