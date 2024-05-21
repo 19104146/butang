@@ -21,6 +21,7 @@ export const products = sqliteTable("products", {
   name: text("name").notNull().unique(),
   description: text("description").default("No description"),
   quantity: integer("quantity").notNull(),
+  lowLimit: integer("low_limit"),
   categoryId: text("category_id")
     .notNull()
     .references(() => categories.id, { onDelete: "cascade" }),

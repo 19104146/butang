@@ -42,7 +42,7 @@ export default function InventoryScreen() {
 
     fetchData();
 
-    const intervalId = setInterval(fetchData, 5000); // Fetch every 5 seconds
+    const intervalId = setInterval(fetchData, 3000); // Fetch every 3 seconds
 
     return () => clearInterval(intervalId);
   }, []);
@@ -62,6 +62,13 @@ export default function InventoryScreen() {
   const toggleItemModal = (item: Product | null) => {
     setSelectedItem(item);
     setIsItemVisible((prev) => !prev);
+  };
+
+  const handleInputChange = (field: keyof NewProduct, value: NewProduct[keyof NewProduct]) => {
+    setProduct((prev) => ({
+      ...prev!,
+      [field]: value,
+    }));
   };
 
   return (
@@ -125,7 +132,8 @@ export default function InventoryScreen() {
                       color: "white",
                     }}
                     placeholder="Name"
-                    placeholderTextColor={"grey"}
+                    placeholderTextColor="grey"
+                    onChangeText={(newText) => handleInputChange("name", newText)}
                   />
                   <TextInput
                     style={{
@@ -142,6 +150,7 @@ export default function InventoryScreen() {
                     }}
                     placeholder="Description"
                     placeholderTextColor={"grey"}
+                    onChangeText={(newText) => handleInputChange("description", newText)}
                   />
                   <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 15 }}>
                     <TextInput
@@ -160,6 +169,7 @@ export default function InventoryScreen() {
                       placeholder="Quantity"
                       placeholderTextColor={"grey"}
                       keyboardType="numeric"
+                      onChangeText={(newText) => handleInputChange("quantity", newText)}
                     />
                     <TextInput
                       style={{
@@ -177,6 +187,7 @@ export default function InventoryScreen() {
                       placeholder="Low Limit"
                       placeholderTextColor={"grey"}
                       keyboardType="numeric"
+                      // onChangeText={(newText) => handleInputChange("Low Limit", newText)}
                     />
                   </View>
                   <TextInput
@@ -195,6 +206,7 @@ export default function InventoryScreen() {
                     }}
                     placeholder="Category"
                     placeholderTextColor={"grey"}
+                    onChangeText={() => handleInputChange("categoryId", "1")}
                   >
                     <MaterialIcons name="keyboard-arrow-down" size={24} color="#FFE9CB" />
                   </TextInput>
@@ -224,8 +236,17 @@ export default function InventoryScreen() {
                       justifyContent: "center",
                     }}
                     onPress={async () => {
-                      console.log("Hello, world");
-                      toggleModal();
+                      if (product) {
+                        console.log(product);
+                        try {
+                          await createProduct(product);
+                          console.log("Succesfully inserted", product);
+                        } catch (error: any) {
+                          console.error(error);
+                        }
+
+                        toggleModal();
+                      }
                     }}
                   >
                     <Text style={{ color: "black", fontSize: 18, fontWeight: "600" }}>Confirm</Text>
