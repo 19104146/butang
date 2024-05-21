@@ -18,7 +18,7 @@ export async function createProduct(product: NewProduct) {
   await db.insert(products).values(product);
 }
 
-export async function updateProduct(product: Product) {
+export async function updateProduct(product: NewProduct & { id: string }) {
   await db.update(products).set(product).where(eq(products.id, product.id));
 }
 

@@ -32,7 +32,6 @@ export default function InventoryScreen() {
   const [isItemVisible, setIsItemVisible] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<Product | null>(null);
   const [product, setProduct] = useState<NewProduct | null>(null);
-
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -42,11 +41,7 @@ export default function InventoryScreen() {
     };
 
     fetchData();
-
-    const intervalId = setInterval(fetchData, 3000); // Fetch every 3 seconds
-
-    return () => clearInterval(intervalId);
-  }, []);
+  }, [isVisible, isItemVisible]);
 
   const filteredProducts = useMemo(() => {
     if (!category) {
@@ -136,23 +131,6 @@ export default function InventoryScreen() {
                     placeholderTextColor="grey"
                     onChangeText={(newText) => handleInputChange("name", newText)}
                   />
-                  <TextInput
-                    style={{
-                      fontSize: 20,
-                      height: 40,
-                      width: "90%",
-                      borderColor: "rgba(255, 255, 255, .3)",
-                      borderWidth: 1,
-                      borderRadius: 10,
-                      marginBottom: 10,
-                      fontWeight: "200",
-                      paddingLeft: 10,
-                      color: "white",
-                    }}
-                    placeholder="Description"
-                    placeholderTextColor={"grey"}
-                    onChangeText={(newText) => handleInputChange("description", newText)}
-                  />
                   <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 15 }}>
                     <TextInput
                       style={{
@@ -188,7 +166,7 @@ export default function InventoryScreen() {
                       placeholder="Low Limit"
                       placeholderTextColor={"grey"}
                       keyboardType="numeric"
-                      // onChangeText={(newText) => handleInputChange("Low Limit", newText)}
+                      onChangeText={(newText) => handleInputChange("lowLimit", newText)}
                     />
                   </View>
                   <TextInput

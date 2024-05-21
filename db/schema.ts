@@ -1,5 +1,4 @@
 import { createId } from "@paralleldrive/cuid2";
-import { sql } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const categories = sqliteTable("categories", {
@@ -9,8 +8,8 @@ export const categories = sqliteTable("categories", {
   name: text("name").notNull().unique(),
   createdAt: text("created_at")
     .notNull()
-    .default(sql`CURRENT_TIMESTAMP`),
-  updatedAt: text("updated_at").$onUpdate(() => sql`CURRENT_TIMESTAMP`),
+    .$default(() => new Date().toISOString()),
+  updatedAt: text("updated_at").$onUpdate(() => new Date().toISOString()),
 });
 
 export const products = sqliteTable("products", {
@@ -19,7 +18,6 @@ export const products = sqliteTable("products", {
     .$default(() => createId()),
   imageUrl: text("image_url"),
   name: text("name").notNull().unique(),
-  description: text("description").default("No description"),
   quantity: integer("quantity").notNull(),
   lowLimit: integer("low_limit"),
   categoryId: text("category_id")
@@ -27,8 +25,8 @@ export const products = sqliteTable("products", {
     .references(() => categories.id, { onDelete: "cascade" }),
   createdAt: text("created_at")
     .notNull()
-    .default(sql`CURRENT_TIMESTAMP`),
-  updatedAt: text("updated_at").$onUpdate(() => sql`CURRENT_TIMESTAMP`),
+    .$default(() => new Date().toISOString()),
+  updatedAt: text("updated_at").$onUpdate(() => new Date().toISOString()),
 });
 
 export const activities = sqliteTable("activities", {
@@ -39,5 +37,5 @@ export const activities = sqliteTable("activities", {
   message: text("message").notNull(),
   createdAt: text("created_at")
     .notNull()
-    .default(sql`CURRENT_TIMESTAMP`),
+    .$default(() => new Date().toISOString()),
 });
