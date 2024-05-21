@@ -3,7 +3,6 @@ import { useMemo } from "react";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { LinearGradient } from "expo-linear-gradient";
-import { Tabs } from "expo-router";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { type Activity } from "@/data-access/activities";
@@ -28,31 +27,31 @@ const dummyActivities = [
     createdAt: "2024-05-17T15:50:43.813Z",
   },
   {
-    id: "3",
+    id: "4",
     sender: "User",
     message: 'Added "Biogesic" to "Medicine"',
     createdAt: "2024-05-17T15:50:43.813Z",
   },
   {
-    id: "3",
+    id: "5",
     sender: "User",
     message: 'Added "Biogesic" to "Medicine"',
     createdAt: "2024-05-18T15:50:43.813Z",
   },
   {
-    id: "3",
+    id: "6",
     sender: "User",
     message: 'Added "Biogesic" to "Medicine"',
     createdAt: "2024-05-19T15:50:43.813Z",
   },
   {
-    id: "3",
+    id: "7",
     sender: "User",
     message: 'Added "Biogesic" to "Medicine"',
     createdAt: "2024-05-22T15:50:43.813Z",
   },
   {
-    id: "3",
+    id: "8",
     sender: "User",
     message: 'Added "Biogesic" to "Medicine"',
     createdAt: "2024-05-21T15:50:43.813Z",

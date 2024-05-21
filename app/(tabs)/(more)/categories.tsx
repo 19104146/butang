@@ -1,14 +1,15 @@
+import { useContext } from "react";
+
 import { useHeaderHeight } from "@react-navigation/elements";
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet, Text, View } from "react-native";
 
-const dummyCategories = [
-  { label: "Medicine", value: "1" },
-  { label: "Beverage", value: "2" },
-];
+import { CategoriesContext } from "../_layout";
 
 export default function Categories() {
   const headerHeight = useHeaderHeight();
+
+  const dummyCategories = useContext(CategoriesContext);
 
   return (
     <View style={[style.container, { paddingTop: headerHeight }]}>
@@ -20,9 +21,9 @@ export default function Categories() {
         end={{ x: 1, y: 0.5 }}
         style={StyleSheet.absoluteFill}
       />
-      {dummyCategories.map((Categories) => (
+      {dummyCategories?.map((category) => (
         <View
-          key={Categories.label}
+          key={category.id}
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
@@ -43,10 +44,10 @@ export default function Categories() {
             end={{ x: 0, y: 0 }}
             style={StyleSheet.compose(StyleSheet.absoluteFill, { borderRadius: 15 })}
           />
-          <Text style={style.text}>{Categories.label}</Text>
-          <View style={{ backgroundColor: "#6A655F", paddingHorizontal: 10, alignSelf: "center", borderRadius: 10 }}>
-            <Text style={{ fontSize: 14, color: "#FFE9CB" }}>{Categories.value}</Text>
-          </View>
+          <Text style={style.text}>{category.name}</Text>
+          {/* <View style={{ backgroundColor: "#6A655F", paddingHorizontal: 10, alignSelf: "center", borderRadius: 10 }}>
+            <Text style={{ fontSize: 14, color: "#FFE9CB" }}>{category.value}</Text>
+          </View> */}
         </View>
       ))}
     </View>
