@@ -8,8 +8,8 @@ import { Category } from "@/data-access/categories";
 export const CategoriesContext = createContext<Category[] | null>(null);
 
 const categories = [
-  { id: "1", name: "Medicine", createdAt: "2024-05-16T15:49:26.978Z", updatedAt: null },
-  { id: "2", name: "Beverages", createdAt: "2024-05-16T15:49:26.978Z", updatedAt: null },
+  { id: "1", name: "Beverages", createdAt: "2024-05-16T15:49:26.978Z", updatedAt: null },
+  { id: "2", name: "Medicine", createdAt: "2024-05-16T15:49:26.978Z", updatedAt: null },
 ];
 
 export default function TabsLayout() {

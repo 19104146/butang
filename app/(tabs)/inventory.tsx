@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { useHeaderHeight } from "@react-navigation/elements";
@@ -21,20 +21,7 @@ import { Dropdown } from "react-native-element-dropdown";
 import ItemModal from "@/components/ItemModal";
 import { Product } from "@/data-access/products";
 
-const dummyCategories = [
-  { label: "All", value: null },
-  { label: "Medicine", value: "1" },
-  { label: "Beverage", value: "2" },
-];
-
-// id: string;
-// name: string;
-// imageUrl: string | null;
-// description: string | null;
-// quantity: number;
-// createdAt: string;
-// updatedAt: string | null;
-// categoryId: string;
+import { CategoriesContext } from "./_layout";
 
 const dummyProducts = [
   {
@@ -84,6 +71,9 @@ export default function InventoryScreen() {
 
     return dummyProducts.filter((product) => product.categoryId === category);
   }, [category]);
+
+  const dummyCategoriesContext = useContext(CategoriesContext);
+  const dummyCategories = [{ id: null, name: "All", createdAt: "", updatedAt: "" }, ...dummyCategoriesContext!];
 
   const toggleModal = () => setIsVisible((prev) => !prev);
   const toggleItemModal = (item: Product | null) => {
@@ -257,10 +247,10 @@ export default function InventoryScreen() {
       </Modal>
       <View style={styles.innerContainer}>
         <Dropdown
-          data={dummyCategories}
-          labelField="label"
-          valueField="value"
-          onChange={(item) => setCategory(item.value)}
+          data={dummyCategories ? dummyCategories : [{ id: "0", name: "No data", createdAt: "", updatedAt: "" }]}
+          labelField="name"
+          valueField="id"
+          onChange={(item) => setCategory(item.id)}
           value={category}
           placeholder="All"
           placeholderStyle={[styles.dropDownText]}
@@ -281,7 +271,6 @@ export default function InventoryScreen() {
           searchPlaceholder="Search..."
           showsVerticalScrollIndicator
           autoScroll
-          
         />
         <FlatList
           data={filteredProducts}
