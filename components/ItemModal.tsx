@@ -66,7 +66,7 @@ const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Elemen
                     fontWeight: "200",
                     paddingLeft: 10,
                   }}
-                  placeholder="Price"
+                  placeholder="Description"
                   placeholderTextColor={"grey"}
                 />
                 <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 15 }}>
