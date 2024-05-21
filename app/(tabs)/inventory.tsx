@@ -1,9 +1,10 @@
+import { useMemo, useState } from "react";
+
 import { MaterialIcons } from "@expo/vector-icons";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { Tabs } from "expo-router";
-import { useMemo, useState } from "react";
 import {
   FlatList,
   KeyboardAvoidingView,
@@ -18,6 +19,7 @@ import {
 import { Dropdown } from "react-native-element-dropdown";
 
 import ItemModal from "@/components/ItemModal";
+import { Product } from "@/data-access/products";
 
 const dummyCategories = [
   { label: "All", value: null },
@@ -25,48 +27,45 @@ const dummyCategories = [
   { label: "Beverage", value: "2" },
 ];
 
+// id: string;
+// name: string;
+// imageUrl: string | null;
+// description: string | null;
+// quantity: number;
+// createdAt: string;
+// updatedAt: string | null;
+// categoryId: string;
+
 const dummyProducts = [
   {
-    id: 1,
-    categoryId: "1",
-    url: null,
+    id: "1",
     name: "Biogesic",
+    imageUrl: null,
+    description: null,
     quantity: 69,
-  },
-  {
-    id: 2,
-    categoryId: "2",
-    url: null,
-    name: "Yakult",
-    quantity: 420,
-  },
-  {
-    id: 3,
-    categoryId: "2",
-    url: null,
-    name: "Dr. Pepper",
-    quantity: 420,
-  },
-  {
-    id: 4,
-    categoryId: "2",
-    url: null,
-    name: "Red Bull",
-    quantity: 420,
-  },
-  {
-    id: 5,
-    categoryId: "2",
-    url: null,
-    name: "Monster",
-    quantity: 420,
-  },
-  {
-    id: 6,
+    createdAt: "2024-05-16T15:49:26.978Z",
+    updatedAt: null,
     categoryId: "1",
-    url: null,
-    name: "Robutusin",
+  },
+  {
+    id: "2",
+    name: "Yakult",
+    imageUrl: null,
+    description: null,
     quantity: 420,
+    createdAt: "2024-05-16T15:49:26.978Z",
+    updatedAt: null,
+    categoryId: "2",
+  },
+  {
+    id: "3",
+    imageUrl: null,
+    name: "Dr. Pepper",
+    description: null,
+    quantity: 420,
+    createdAt: "2024-05-16T15:49:26.978Z",
+    updatedAt: null,
+    categoryId: "2",
   },
 ];
 
@@ -76,7 +75,7 @@ export default function InventoryScreen() {
   const [category, setCategory] = useState<string | null>(null);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isItemVisible, setIsItemVisible] = useState<boolean>(false);
-  const [selectedItem, setSelectedItem] = useState<Item | null>(null);
+  const [selectedItem, setSelectedItem] = useState<Product | null>(null);
 
   const filteredProducts = useMemo(() => {
     if (!category) {
@@ -87,7 +86,7 @@ export default function InventoryScreen() {
   }, [category]);
 
   const toggleModal = () => setIsVisible((prev) => !prev);
-  const toggleItemModal = (item: Item | null) => {
+  const toggleItemModal = (item: Product | null) => {
     setSelectedItem(item);
     setIsItemVisible((prev) => !prev);
   };
@@ -282,8 +281,8 @@ export default function InventoryScreen() {
               onPress={() => toggleItemModal(item)}
             >
               <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-                {item.url ? (
-                  <Image source={item.url} style={styles.image} />
+                {item.imageUrl ? (
+                  <Image source={item.imageUrl} style={styles.image} />
                 ) : (
                   <MaterialIcons name="photo" size={50} color="#FFE9CB" style={styles.image} />
                 )}

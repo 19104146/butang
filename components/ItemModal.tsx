@@ -1,11 +1,12 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import React from "react";
 import { KeyboardAvoidingView, Modal, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+
+import { Product } from "@/data-access/products";
 
 interface itemModalProps {
   isItemVisible: boolean;
-  item: Item | null;
+  item: Product | null;
   onClose: () => void;
 }
 
