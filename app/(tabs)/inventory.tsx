@@ -19,6 +19,7 @@ import {
 import { Dropdown } from "react-native-element-dropdown";
 
 import ItemModal from "@/components/ItemModal";
+import { createActivity } from "@/data-access/activities";
 import { createProduct, listProducts, NewProduct, Product } from "@/data-access/products";
 
 import { CategoriesContext } from "./_layout";
@@ -237,10 +238,12 @@ export default function InventoryScreen() {
                     }}
                     onPress={async () => {
                       if (product) {
-                        console.log(product);
                         try {
                           await createProduct(product);
-                          console.log("Succesfully inserted", product);
+                          await createActivity({
+                            sender: "User",
+                            message: `Added ${product.quantity} ${product.name}`,
+                          });
                         } catch (error: any) {
                           console.error(error);
                         }

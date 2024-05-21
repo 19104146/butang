@@ -1,70 +1,34 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { LinearGradient } from "expo-linear-gradient";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
-import { type Activity } from "@/data-access/activities";
-
-const dummyActivities = [
-  {
-    id: "1",
-    sender: "User",
-    message: 'Added "Lorem ipsum" to "Dolor"',
-    createdAt: "2024-05-16T15:49:26.978Z",
-  },
-  {
-    id: "2",
-    sender: "User",
-    message: 'Added "Sit amet" to "Dolor"',
-    createdAt: "2024-05-16T15:50:43.813Z",
-  },
-  {
-    id: "3",
-    sender: "User",
-    message: 'Added "Biogesic" to "Medicine"',
-    createdAt: "2024-05-17T15:50:43.813Z",
-  },
-  {
-    id: "4",
-    sender: "User",
-    message: 'Added "Biogesic" to "Medicine"',
-    createdAt: "2024-05-17T15:50:43.813Z",
-  },
-  {
-    id: "5",
-    sender: "User",
-    message: 'Added "Biogesic" to "Medicine"',
-    createdAt: "2024-05-18T15:50:43.813Z",
-  },
-  {
-    id: "6",
-    sender: "User",
-    message: 'Added "Biogesic" to "Medicine"',
-    createdAt: "2024-05-19T15:50:43.813Z",
-  },
-  {
-    id: "7",
-    sender: "User",
-    message: 'Added "Biogesic" to "Medicine"',
-    createdAt: "2024-05-22T15:50:43.813Z",
-  },
-  {
-    id: "8",
-    sender: "User",
-    message: 'Added "Biogesic" to "Medicine"',
-    createdAt: "2024-05-21T15:50:43.813Z",
-  },
-];
+import { listActivities, type Activity } from "@/data-access/activities";
 
 export default function ActivityScreen() {
   const headerHeight = useHeaderHeight();
   const tabBarHeight = useBottomTabBarHeight();
 
+  const [activities, setActivities] = useState<Activity[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedActivities = await listActivities();
+      setActivities(fetchedActivities);
+    };
+
+    fetchData();
+
+    const intervalId = setInterval(fetchData, 3000); // Fetch every 3 seconds
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   const groupActivities = useMemo(() => {
     return Object.values(
-      dummyActivities.reduceRight(
+      activities.reduceRight(
         (acc, activity) => {
           const date = activity.createdAt.substring(0, 10);
           acc[date] = (acc[date] || []).concat(activity);
@@ -73,7 +37,7 @@ export default function ActivityScreen() {
         {} as { [date: string]: Activity[] },
       ),
     );
-  }, []);
+  }, [activities]);
 
   return (
     <View style={{ flex: 1 }}>
