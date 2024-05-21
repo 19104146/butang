@@ -2,7 +2,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { KeyboardAvoidingView, Modal, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
-import { Product } from "@/data-access/products";
+import { deleteProduct, Product } from "@/data-access/products";
 
 interface itemModalProps {
   isItemVisible: boolean;
@@ -11,6 +11,15 @@ interface itemModalProps {
 }
 
 const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Element => {
+  const handleDelete = (productId?: string) => {
+    if (productId) {
+      deleteProduct(productId);
+      onClose();
+    } else {
+      console.error("Product ID is undefined. Cannot delete.");
+    }
+  };
+
   return (
     <Modal visible={isItemVisible} animationType="fade" transparent>
       <View style={styles.modalContainer}>
@@ -124,32 +133,37 @@ const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Elemen
                 </TextInput>
               </View>
               <View style={styles.rowContainer}>
-                <Pressable
-                  onPress={onClose}
-                  style={{
-                    borderWidth: 2,
-                    borderRadius: 20,
-                    borderColor: "#EC8A8D",
-                    width: 77,
-                    height: 35,
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Text style={{ color: "#EC8A8D", fontSize: 18, fontWeight: "600" }}>Cancel</Text>
+                <Pressable onPress={() => handleDelete(item?.id)}>
+                  <MaterialIcons name="delete" size={40} color="#FFE9CB" />
                 </Pressable>
-                <Pressable
-                  style={{
-                    borderRadius: 20,
-                    backgroundColor: "#22A969",
-                    width: 95,
-                    height: 35,
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Text style={{ color: "black", fontSize: 18, fontWeight: "600" }}>Confirm</Text>
-                </Pressable>
+                <View style={{ flexDirection: "row", gap: 5 }}>
+                  <Pressable
+                    onPress={onClose}
+                    style={{
+                      borderWidth: 2,
+                      borderRadius: 20,
+                      borderColor: "#EC8A8D",
+                      width: 77,
+                      height: 35,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text style={{ color: "#EC8A8D", fontSize: 18, fontWeight: "600" }}>Cancel</Text>
+                  </Pressable>
+                  <Pressable
+                    style={{
+                      borderRadius: 20,
+                      backgroundColor: "#22A969",
+                      width: 95,
+                      height: 35,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text style={{ color: "black", fontSize: 18, fontWeight: "600" }}>Confirm</Text>
+                  </Pressable>
+                </View>
               </View>
             </View>
           </LinearGradient>
@@ -190,7 +204,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     gap: 20,
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
     height: 50,
     alignItems: "flex-end",
     paddingHorizontal: 10,
