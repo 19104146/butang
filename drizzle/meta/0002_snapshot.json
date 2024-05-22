@@ -1,8 +1,8 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "bee5f7af-db8b-4360-8ff4-7abb02af6cf6",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "312f3278-70a0-46a1-a16d-135d68ac42e4",
+  "prevId": "ebdb7cc7-f428-42f9-8b44-f47041b0e5e8",
   "tables": {
     "activities": {
       "name": "activities",
@@ -11,6 +11,13 @@
           "name": "id",
           "type": "text",
           "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "sender": {
+          "name": "sender",
+          "type": "text",
+          "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
@@ -27,7 +34,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP"
+          "default": "CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Taipei'"
         }
       },
       "indexes": {},
@@ -58,7 +65,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP"
+          "default": "CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Taipei'"
         },
         "updated_at": {
           "name": "updated_at",
@@ -103,16 +110,15 @@
           "notNull": true,
           "autoincrement": false
         },
-        "description": {
-          "name": "description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": "'No description'"
-        },
         "quantity": {
           "name": "quantity",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "low_limit": {
+          "name": "low_limit",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
@@ -131,7 +137,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP"
+          "default": "CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Taipei'"
         },
         "updated_at": {
           "name": "updated_at",

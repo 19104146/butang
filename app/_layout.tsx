@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
 
 import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
+import { SplashScreen, Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 
 import { db } from "@/db";
 import migrations from "@/drizzle/migrations";
@@ -32,9 +32,12 @@ export default function AppLayout() {
 
   return (
     success && (
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
+      <>
+        <StatusBar style="light" backgroundColor="#00000050" />
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </Stack>
+      </>
     )
   );
 }

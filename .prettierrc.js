@@ -1,11 +1,9 @@
 /** @type {import("prettier").Config} */
 module.exports = {
   importOrder: [
+    "^(react/(.*)$)|^(react$)",
+    "",
     "<BUILTIN_MODULES>",
-    "",
-    "^(react|react-native)(/(.*)$|$)",
-    "^(expo|expo-.*)(/(.*)$|$)",
-    "",
     "<THIRD_PARTY_MODULES>",
     "",
     "^@/(.*)$",
