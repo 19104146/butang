@@ -74,48 +74,28 @@ const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Elemen
               <View
                 style={{
                   flexDirection: "row",
-                  justifyContent: "flex-start",
+                  justifyContent: "center",
                   width: "100%",
-                  paddingHorizontal: 15,
-                  paddingTop: 5,
+                  alignItems: "center",
                 }}
               >
-                <Text style={{ color: "#FFE9CB", fontSize: 36, fontWeight: "bold" }}>{item?.name}</Text>
+                <Text style={{ color: "#FFE9CB", fontSize: 30, fontWeight: "bold" }}>{item?.name}</Text>
+                <Pressable onPress={() => handleDelete(item?.id)}>
+                  <MaterialIcons name="delete" size={30} color="#EC8A8D" />
+                </Pressable>
               </View>
-              <MaterialIcons name="image" size={150} color="#FFE9CB" />
-              <View style={{ width: "100%", alignItems: "center" }}>
+              {/* <MaterialIcons name="image" size={150} color="#FFE9CB" /> */}
+              <View style={{ width: "100%", alignItems: "center", marginTop: 10 }}>
                 <TextInput
-                  style={{
-                    fontSize: 20,
-                    height: 40,
-                    width: "90%",
-                    borderColor: "rgba(255, 255, 255, .3)",
-                    borderWidth: 1,
-                    borderRadius: 10,
-                    marginBottom: 10,
-                    fontWeight: "200",
-                    paddingLeft: 10,
-                    color: "white",
-                  }}
+                  style={[styles.inputText, { width: "100%" }]}
                   placeholder="Name"
                   placeholderTextColor={"grey"}
                   value={product?.name}
                   onChangeText={(text) => handleInputChange("name", text)}
                 />
-                <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 15 }}>
+                <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 10 }}>
                   <TextInput
-                    style={{
-                      fontSize: 20,
-                      height: 40,
-                      width: "43%",
-                      borderColor: "rgba(255, 255, 255, .3)",
-                      borderWidth: 1,
-                      borderRadius: 10,
-                      marginBottom: 10,
-                      fontWeight: "200",
-                      paddingLeft: 10,
-                      color: "white",
-                    }}
+                    style={styles.inputText}
                     placeholder="Quantity"
                     placeholderTextColor={"grey"}
                     keyboardType="numeric"
@@ -123,18 +103,7 @@ const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Elemen
                     onChangeText={(text) => handleInputChange("quantity", text)}
                   />
                   <TextInput
-                    style={{
-                      fontSize: 20,
-                      height: 40,
-                      width: "43%",
-                      borderColor: "rgba(255, 255, 255, .3)",
-                      borderWidth: 1,
-                      borderRadius: 10,
-                      marginBottom: 10,
-                      fontWeight: "200",
-                      paddingLeft: 10,
-                      color: "white",
-                    }}
+                    style={styles.inputText}
                     placeholder="Low Limit"
                     placeholderTextColor={"grey"}
                     keyboardType="numeric"
@@ -149,8 +118,20 @@ const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Elemen
                   onChange={(item) => handleInputChange("categoryId", item.id)}
                   value={item?.categoryId}
                   placeholder={item?.name}
-                  placeholderStyle={[styles.dropDownText]}
-                  selectedTextStyle={styles.dropDownText}
+                  placeholderStyle={[
+                    styles.dropDownText,
+                    {
+                      fontWeight: "200",
+                      color: "rgba(255, 255, 255, .3)",
+                    },
+                  ]}
+                  selectedTextStyle={[
+                    styles.dropDownText,
+                    {
+                      fontWeight: "200",
+                      color: "white",
+                    },
+                  ]}
                   itemTextStyle={[styles.dropDownText, { fontSize: 16, borderRadius: 16 }]}
                   containerStyle={{
                     borderColor: "#161615",
@@ -165,8 +146,9 @@ const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Elemen
                   showsVerticalScrollIndicator
                   autoScroll
                   style={{
-                    width: "90%",
-                    paddingHorizontal: 25,
+                    height: 42,
+                    width: "100%",
+                    paddingHorizontal: 10,
                     borderColor: "rgba(255, 255, 255, .3)",
                     borderWidth: 1,
                     marginHorizontal: 60,
@@ -175,56 +157,51 @@ const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Elemen
                 />
               </View>
               <View style={styles.rowContainer}>
-                <Pressable onPress={() => handleDelete(item?.id)}>
-                  <MaterialIcons name="delete" size={40} color="#FFE9CB" />
+                <Pressable
+                  onPress={onClose}
+                  style={{
+                    borderWidth: 2,
+                    borderRadius: 20,
+                    borderColor: "#EC8A8D",
+                    width: 77,
+                    height: 35,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text style={{ color: "#EC8A8D", fontSize: 18, fontWeight: "600" }}>Cancel</Text>
                 </Pressable>
-                <View style={{ flexDirection: "row", gap: 5 }}>
-                  <Pressable
-                    onPress={onClose}
-                    style={{
-                      borderWidth: 2,
-                      borderRadius: 20,
-                      borderColor: "#EC8A8D",
-                      width: 77,
-                      height: 35,
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Text style={{ color: "#EC8A8D", fontSize: 18, fontWeight: "600" }}>Cancel</Text>
-                  </Pressable>
-                  <Pressable
-                    style={{
-                      borderRadius: 20,
-                      backgroundColor: "#22A969",
-                      width: 95,
-                      height: 35,
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                    onPress={async () => {
-                      if (product && item?.id) {
-                        const updatedProduct = {
-                          ...product,
-                          id: item.id,
-                        };
+                <Pressable
+                  style={{
+                    borderRadius: 20,
+                    backgroundColor: "#1cdf93",
+                    width: 95,
+                    height: 35,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  onPress={async () => {
+                    if (product && item?.id) {
+                      const updatedProduct = {
+                        ...product,
+                        id: item.id,
+                      };
 
-                        try {
-                          await updateProduct(updatedProduct);
-                          await createActivity({
-                            sender: "User",
-                            message: `Updated "${item?.name}"`,
-                          });
-                        } catch (error) {
-                          console.error("Error updating product:", error);
-                        }
-                        onClose();
+                      try {
+                        await updateProduct(updatedProduct);
+                        await createActivity({
+                          sender: "User",
+                          message: `Updated "${item?.name}"`,
+                        });
+                      } catch (error) {
+                        console.error("Error updating product:", error);
                       }
-                    }}
-                  >
-                    <Text style={{ color: "black", fontSize: 18, fontWeight: "600" }}>Update</Text>
-                  </Pressable>
-                </View>
+                      onClose();
+                    }
+                  }}
+                >
+                  <Text style={{ color: "black", fontSize: 18, fontWeight: "600" }}>Update</Text>
+                </Pressable>
               </View>
             </View>
           </LinearGradient>
@@ -241,12 +218,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.6)",
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
+    padding: 20,
   },
   modalView: {
+    borderColor: "#34240D",
+    borderWidth: 2,
     display: "flex",
-    width: "90%",
-    height: 420,
+    width: "100%",
+    height: 290,
     backgroundColor: "#201E1B",
     borderRadius: 20,
     padding: 35,
@@ -264,20 +244,32 @@ const styles = StyleSheet.create({
   rowContainer: {
     flexDirection: "row",
     width: "100%",
+    height: "22%",
     gap: 20,
-    justifyContent: "space-between",
-    height: "15%",
+    justifyContent: "flex-end",
     alignItems: "flex-end",
-    paddingHorizontal: 10,
   },
   dropDownText: {
     color: "#FFE9CB",
     fontSize: 20,
     fontWeight: 500,
   },
+  inputText: {
+    fontSize: 20,
+    height: 42,
+    width: "48%",
+    borderColor: "rgba(255, 255, 255, .3)",
+    borderWidth: 1,
+    borderRadius: 10,
+    marginBottom: 10,
+    paddingLeft: 10,
+    fontWeight: "200",
+    color: "white",
+  },
   formView: {
     width: "100%",
-    height: "85%",
+    height: "100%",
+    padding: 20,
     alignItems: "center",
     justifyContent: "flex-start",
   },

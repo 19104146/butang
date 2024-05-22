@@ -56,24 +56,25 @@ const CategoryModal = ({ isVisible, category, onClose }: categoryModalProps): JS
               <View
                 style={{
                   flexDirection: "row",
-                  justifyContent: "flex-start",
+                  justifyContent: "center",
                   width: "100%",
-                  paddingHorizontal: 15,
-                  paddingTop: 5,
+                  alignItems: "center",
                 }}
               >
-                <Text style={{ color: "#FFE9CB", fontSize: 36, fontWeight: "bold" }}>Add Category</Text>
+                <Text style={{ color: "#FFE9CB", fontSize: 30, fontWeight: "bold" }}>Change Category</Text>
+                <Pressable onPress={() => handleDelete(categories?.id)}>
+                  <MaterialIcons name="delete" size={30} color="#EC8A8D" />
+                </Pressable>
               </View>
-              <View style={{ width: "100%", alignItems: "center", flex: 1, justifyContent: "center" }}>
+              <View style={{ width: "100%", alignItems: "center", marginVertical: 10, justifyContent: "center" }}>
                 <TextInput
                   style={{
                     fontSize: 20,
                     height: 40,
-                    width: "90%",
+                    width: "100%",
                     borderColor: "rgba(255, 255, 255, .3)",
                     borderWidth: 1,
                     borderRadius: 10,
-                    marginBottom: 10,
                     fontWeight: "200",
                     paddingLeft: 10,
                     color: "white",
@@ -84,12 +85,7 @@ const CategoryModal = ({ isVisible, category, onClose }: categoryModalProps): JS
                   onChangeText={(newText) => handleInputChange("name", newText)}
                 />
               </View>
-            </View>
-            <View style={style.rowContainer}>
-              <Pressable onPress={() => handleDelete(categories?.id)}>
-                <MaterialIcons name="delete" size={35} color="#EC8A8D" />
-              </Pressable>
-              <View style={{ flexDirection: "row", gap: 5 }}>
+              <View style={style.rowContainer}>
                 <Pressable
                   onPress={onClose}
                   style={{
@@ -107,7 +103,7 @@ const CategoryModal = ({ isVisible, category, onClose }: categoryModalProps): JS
                 <Pressable
                   style={{
                     borderRadius: 20,
-                    backgroundColor: "#22A969",
+                    backgroundColor: "#1cdf93",
                     width: 95,
                     height: 35,
                     alignItems: "center",
@@ -161,11 +157,14 @@ const style = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.7)",
+    padding: 20,
   },
   modalView: {
+    borderColor: "#34240D",
+    borderWidth: 2,
     display: "flex",
-    width: "90%",
-    height: 200,
+    width: "100%",
+    height: 190,
     backgroundColor: "#201E1B",
     borderRadius: 20,
     padding: 35,
@@ -182,7 +181,8 @@ const style = StyleSheet.create({
   },
   formView: {
     width: "100%",
-    height: "75%",
+    height: "100%",
+    padding: 20,
     alignItems: "center",
     justifyContent: "flex-start",
   },
@@ -190,10 +190,8 @@ const style = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     gap: 20,
-    justifyContent: "space-between",
-    height: "25%",
-    alignItems: "center",
-    paddingHorizontal: 10,
-    paddingBottom: 5,
+    justifyContent: "flex-end",
+    height: "32%",
+    alignItems: "flex-end",
   },
 });

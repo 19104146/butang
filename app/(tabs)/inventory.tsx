@@ -106,8 +106,10 @@ export default function InventoryScreen() {
               style={StyleSheet.compose(StyleSheet.absoluteFill, { borderRadius: 20 })}
             >
               <View style={styles.formView}>
-                <Text style={{ color: "#FFE9CB", fontSize: 30, fontWeight: "bold",alignSelf:"flex-start"}}>Add Item</Text>
-                <MaterialIcons name="image" size={150} color="#FFE9CB" />
+                <Text style={{ color: "#FFE9CB", fontSize: 30, fontWeight: "bold", alignSelf: "center" }}>
+                  Add Item
+                </Text>
+                {/* <MaterialIcons name="image" size={150} color="#FFE9CB" /> */}
                 <View style={{ width: "100%", alignItems: "center", marginTop: 10 }}>
                   <TextInput
                     style={[styles.inputText, { width: "100%" }]}
@@ -195,8 +197,8 @@ export default function InventoryScreen() {
                   <Pressable
                     onPress={toggleModal}
                     style={{
-                      borderWidth: 2,
                       borderRadius: 20,
+                      borderWidth: 2,
                       borderColor: "#EC8A8D",
                       width: 77,
                       height: 35,
@@ -249,7 +251,7 @@ export default function InventoryScreen() {
           value={category}
           placeholder="All"
           placeholderStyle={[styles.dropDownText]}
-          selectedTextStyle={styles.dropDownText}
+          selectedTextStyle={[styles.dropDownText, { fontSize: 24 }]}
           itemTextStyle={[styles.dropDownText, { fontSize: 16, borderRadius: 16 }]}
           containerStyle={{
             borderColor: "#161615",
@@ -263,23 +265,24 @@ export default function InventoryScreen() {
           activeColor="#936525"
           showsVerticalScrollIndicator
           autoScroll
+          style={{ marginBottom: 20 }}
         />
         <FlatList
           data={filteredProducts}
           renderItem={({ item }) => (
             <Pressable
-              style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}
+              style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}
               onPress={() => toggleItemModal(item)}
             >
               <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-                {item.imageUrl ? (
+                {/* {item.imageUrl ? (
                   <Image source={item.imageUrl} style={styles.image} />
                 ) : (
                   <MaterialIcons name="photo" size={50} color="#FFE9CB" style={styles.image} />
-                )}
-                <Text style={{ color: "#FFE9CB" }}>{item.name}</Text>
+                )} */}
+                <Text style={[styles.dropDownText, { fontSize: 18 }]}>{item.name}</Text>
               </View>
-              <Text style={{ color: "#FFE9CB" }}>{item.quantity}</Text>
+              <Text style={[styles.dropDownText, { fontSize: 18 }]}>{item.quantity}</Text>
             </Pressable>
           )}
         />
@@ -316,7 +319,7 @@ const styles = StyleSheet.create({
   dropDownText: {
     color: "#FFE9CB",
     fontSize: 20,
-    fontWeight: 500,
+    fontWeight: "500",
   },
   image: {
     borderColor: "#FFE9CB",
@@ -341,7 +344,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     display: "flex",
     width: "100%",
-    height: 450,
+    height: 290,
     backgroundColor: "#201E1B",
     borderRadius: 20,
     padding: 35,
@@ -359,11 +362,10 @@ const styles = StyleSheet.create({
   rowContainer: {
     flexDirection: "row",
     width: "100%",
+    height: "22%",
     gap: 20,
     justifyContent: "flex-end",
-    height: "14%",
     alignItems: "flex-end",
-    paddingLeft: 10,
   },
   formView: {
     width: "100%",
