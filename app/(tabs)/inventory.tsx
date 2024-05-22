@@ -106,28 +106,17 @@ export default function InventoryScreen() {
               style={StyleSheet.compose(StyleSheet.absoluteFill, { borderRadius: 20 })}
             >
               <View style={styles.formView}>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "flex-start",
-                    width: "100%",
-                    paddingHorizontal: 15,
-                    paddingTop: 5,
-                    height: 45,
-                  }}
-                >
-                  <Text style={{ color: "#FFE9CB", fontSize: 36, fontWeight: "bold" }}>Add Item</Text>
-                </View>
+                <Text style={{ color: "#FFE9CB", fontSize: 30, fontWeight: "bold",alignSelf:"flex-start"}}>Add Item</Text>
                 <MaterialIcons name="image" size={150} color="#FFE9CB" />
-                <View style={{ width: "100%", alignItems: "center" }}>
+                <View style={{ width: "100%", alignItems: "center", marginTop: 10 }}>
                   <TextInput
-                    style={[styles.inputText, { width: "90%" }]}
+                    style={[styles.inputText, { width: "100%" }]}
                     placeholder="Name"
                     placeholderTextColor="grey"
                     onChangeText={(newText) => handleInputChange("name", newText)}
                     autoComplete="off"
                   />
-                  <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 15 }}>
+                  <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 10 }}>
                     <TextInput
                       style={styles.inputText}
                       placeholder="Quantity"
@@ -179,7 +168,8 @@ export default function InventoryScreen() {
                       showsVerticalScrollIndicator
                       autoScroll
                       style={{
-                        width: "90%",
+                        height: 42,
+                        width: "100%",
                         paddingHorizontal: 10,
                         borderColor: "rgba(255, 255, 255, .3)",
                         borderWidth: 1,
@@ -190,14 +180,10 @@ export default function InventoryScreen() {
                   ) : (
                     <Text
                       style={{
-                        fontSize: 14,
-                        height: 40,
-                        width: "90%",
-                        marginBottom: 10,
-                        fontWeight: "200",
-                        paddingLeft: 10,
+                        fontSize: 16,
+                        fontWeight: "500",
                         textAlign: "center",
-                        color: "#FF0000",
+                        color: "#EC8A8D",
                       }}
                     >
                       Go to (
@@ -223,7 +209,7 @@ export default function InventoryScreen() {
                   <Pressable
                     style={{
                       borderRadius: 20,
-                      backgroundColor: "#22A969",
+                      backgroundColor: "#1cdf93",
                       width: 95,
                       height: 35,
                       alignItems: "center",
@@ -312,8 +298,8 @@ const styles = StyleSheet.create({
   },
   inputText: {
     fontSize: 20,
-    height: 40,
-    width: "43%",
+    height: 42,
+    width: "48%",
     borderColor: "rgba(255, 255, 255, .3)",
     borderWidth: 1,
     borderRadius: 10,
@@ -348,11 +334,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.7)",
+    padding: 20,
   },
   modalView: {
+    borderColor: "#34240D",
+    borderWidth: 2,
     display: "flex",
-    width: "90%",
-    height: 420,
+    width: "100%",
+    height: 450,
     backgroundColor: "#201E1B",
     borderRadius: 20,
     padding: 35,
@@ -372,13 +361,14 @@ const styles = StyleSheet.create({
     width: "100%",
     gap: 20,
     justifyContent: "flex-end",
-    height: "15%",
+    height: "14%",
     alignItems: "flex-end",
-    paddingHorizontal: 10,
+    paddingLeft: 10,
   },
   formView: {
     width: "100%",
-    height: "85%",
+    height: "100%",
+    padding: 20,
     alignItems: "center",
     justifyContent: "flex-start",
   },
