@@ -18,12 +18,18 @@ interface itemModalProps {
 const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Element => {
   const [product, setProduct] = useState<NewProduct | null>(item);
   const [categories, setCategories] = useState<Category[] | null>();
+  const [modalCategories, setModalCategories] = useState<Category[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const fetchedCategories = await listCategories();
+      const fetchedModalCategories = await listCategories();
 
-      fetchedCategories.unshift({ id: "none", name: "All", createdAt: "", updatedAt: null });
+      setModalCategories(fetchedModalCategories);
+
+      if (fetchedCategories.length > 0) {
+        fetchedCategories.unshift({ id: "none", name: "All", createdAt: "", updatedAt: null });
+      }
 
       setCategories(fetchedCategories);
     };
@@ -137,7 +143,7 @@ const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Elemen
                   />
                 </View>
                 <Dropdown
-                  data={categories ? categories : [{ id: "0", name: "No data", createdAt: "", updatedAt: "" }]}
+                  data={modalCategories}
                   labelField="name"
                   valueField="id"
                   onChange={(item) => handleInputChange("categoryId", item.id)}

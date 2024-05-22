@@ -46,7 +46,6 @@ export default function Categories() {
         options={{
           headerRight: ({ tintColor }) => (
             <View style={style.headerRightContainer}>
-              <MaterialIcons name="search" size={24} color={tintColor} />
               <MaterialIcons name="add-box" size={24} color={tintColor} onPress={toggleModal} />
             </View>
           ),

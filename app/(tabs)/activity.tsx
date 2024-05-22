@@ -6,6 +6,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { listActivities, type Activity } from "@/data-access/activities";
+import { db } from "@/db";
+import { activities as activityTable } from "@/db/schema";
 
 export default function ActivityScreen() {
   const headerHeight = useHeaderHeight();
@@ -15,6 +17,7 @@ export default function ActivityScreen() {
 
   useEffect(() => {
     const fetchData = async () => {
+      // await db.delete(activityTable); // developers: delete all activity
       const fetchedActivities = await listActivities();
       setActivities(fetchedActivities);
     };
