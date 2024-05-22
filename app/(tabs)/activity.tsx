@@ -6,8 +6,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { listActivities, type Activity } from "@/data-access/activities";
-import { db } from "@/db";
-import { activities as activityTable } from "@/db/schema";
 
 export default function ActivityScreen() {
   const headerHeight = useHeaderHeight();
@@ -17,7 +15,6 @@ export default function ActivityScreen() {
 
   useEffect(() => {
     const fetchData = async () => {
-      // await db.delete(activityTable); // developers: delete all activity
       const fetchedActivities = await listActivities();
       setActivities(fetchedActivities);
     };
@@ -66,9 +63,7 @@ export default function ActivityScreen() {
               style={styles.card}
             >
               <View style={{ gap: 10 }}>
-                <Text style={[styles.text, { fontSize: 20 }]}>
-                  {new Date(activities[0].createdAt).toLocaleDateString()}
-                </Text>
+                <Text style={[styles.text, { fontSize: 20 }]}>{activities[0].createdAt.substring(0, 10)}</Text>
                 {activities.map((activity) => (
                   <View key={activity.id}>
                     <Text style={styles.text}>{`(${activity.sender}) ${activity.message}`}</Text>

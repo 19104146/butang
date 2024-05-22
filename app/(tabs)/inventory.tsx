@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { useHeaderHeight } from "@react-navigation/elements";
-import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { Tabs } from "expo-router";
 import {
@@ -109,7 +108,6 @@ export default function InventoryScreen() {
                 <Text style={{ color: "#FFE9CB", fontSize: 30, fontWeight: "bold", alignSelf: "center" }}>
                   Add Item
                 </Text>
-                {/* <MaterialIcons name="image" size={150} color="#FFE9CB" /> */}
                 <View style={{ width: "100%", alignItems: "center", marginTop: 10 }}>
                   <TextInput
                     style={[styles.inputText, { width: "100%" }]}
