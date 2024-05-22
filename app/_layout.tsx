@@ -33,7 +33,7 @@ export default function AppLayout() {
   return (
     success && (
       <>
-        <StatusBar style="light" />
+        <StatusBar style="light" backgroundColor = "#00000050" />
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         </Stack>
