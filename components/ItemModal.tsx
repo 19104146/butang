@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { KeyboardAvoidingView, Modal, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Dropdown } from "react-native-element-dropdown";
 
 import { createActivity } from "@/data-access/activities";
+import { Category, listCategories } from "@/data-access/categories";
 import { deleteProduct, updateProduct, type NewProduct } from "@/data-access/products";
 
 interface itemModalProps {
@@ -15,8 +17,18 @@ interface itemModalProps {
 
 const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Element => {
   const [product, setProduct] = useState<NewProduct | null>(item);
+  const [categories, setCategories] = useState<Category[] | null>();
 
   useEffect(() => {
+    const fetchData = async () => {
+      const fetchedCategories = await listCategories();
+
+      fetchedCategories.unshift({ id: "none", name: "All", createdAt: "", updatedAt: null });
+
+      setCategories(fetchedCategories);
+    };
+    fetchData();
+
     setProduct(item);
   }, [item]);
 
@@ -124,25 +136,37 @@ const ItemModal = ({ isItemVisible, item, onClose }: itemModalProps): JSX.Elemen
                     onChangeText={(text) => handleInputChange("lowLimit", text)}
                   />
                 </View>
-                <TextInput
+                <Dropdown
+                  data={categories ? categories : [{ id: "0", name: "No data", createdAt: "", updatedAt: "" }]}
+                  labelField="name"
+                  valueField="id"
+                  onChange={(item) => handleInputChange("categoryId", item.id)}
+                  value={item?.categoryId}
+                  placeholder={item?.name}
+                  placeholderStyle={[styles.dropDownText]}
+                  selectedTextStyle={styles.dropDownText}
+                  itemTextStyle={[styles.dropDownText, { fontSize: 16, borderRadius: 16 }]}
+                  containerStyle={{
+                    borderColor: "#161615",
+                    padding: 4,
+                    borderRadius: 20,
+                    backgroundColor: "#111111",
+                    borderWidth: 1,
+                  }}
+                  iconColor="#FFE9CB"
+                  itemContainerStyle={{ backgroundColor: "#161615", margin: 4, borderRadius: 16 }}
+                  activeColor="#936525"
+                  showsVerticalScrollIndicator
+                  autoScroll
                   style={{
-                    fontSize: 20,
-                    height: 40,
                     width: "90%",
+                    paddingHorizontal: 25,
                     borderColor: "rgba(255, 255, 255, .3)",
                     borderWidth: 1,
+                    marginHorizontal: 60,
                     borderRadius: 10,
-                    marginBottom: 10,
-                    fontWeight: "200",
-                    paddingLeft: 10,
-                    alignItems: "flex-end",
                   }}
-                  placeholder="Category"
-                  placeholderTextColor={"grey"}
-                  onChangeText={(text) => handleInputChange("categoryId", "1")}
-                >
-                  <MaterialIcons name="keyboard-arrow-down" size={24} color="#FFE9CB" />
-                </TextInput>
+                />
               </View>
               <View style={styles.rowContainer}>
                 <Pressable onPress={() => handleDelete(item?.id)}>
@@ -239,6 +263,11 @@ const styles = StyleSheet.create({
     height: "15%",
     alignItems: "flex-end",
     paddingHorizontal: 10,
+  },
+  dropDownText: {
+    color: "#FFE9CB",
+    fontSize: 20,
+    fontWeight: 500,
   },
   formView: {
     width: "100%",

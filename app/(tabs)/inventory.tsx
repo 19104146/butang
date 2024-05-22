@@ -50,7 +50,7 @@ export default function InventoryScreen() {
     const intervalId = setInterval(fetchData, 5000);
 
     return () => clearInterval(intervalId);
-  },[]);
+  }, []);
 
   const filteredProducts = useMemo(() => {
     if (category === "none") {
@@ -121,54 +121,22 @@ export default function InventoryScreen() {
                 <MaterialIcons name="image" size={150} color="#FFE9CB" />
                 <View style={{ width: "100%", alignItems: "center" }}>
                   <TextInput
-                    style={{
-                      fontSize: 20,
-                      height: 40,
-                      width: "90%",
-                      borderColor: "rgba(255, 255, 255, .3)",
-                      borderWidth: 1,
-                      borderRadius: 10,
-                      marginBottom: 10,
-                      fontWeight: "200",
-                      paddingLeft: 10,
-                      color: "white",
-                    }}
+                    style={[styles.inputText, { width: "90%" }]}
                     placeholder="Name"
                     placeholderTextColor="grey"
                     onChangeText={(newText) => handleInputChange("name", newText)}
+                    autoComplete="off"
                   />
                   <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 15 }}>
                     <TextInput
-                      style={{
-                        fontSize: 20,
-                        height: 40,
-                        width: "43%",
-                        borderColor: "rgba(255, 255, 255, .3)",
-                        borderWidth: 1,
-                        borderRadius: 10,
-                        marginBottom: 10,
-                        fontWeight: "200",
-                        paddingLeft: 10,
-                        color: "white",
-                      }}
+                      style={styles.inputText}
                       placeholder="Quantity"
                       placeholderTextColor={"grey"}
                       keyboardType="numeric"
                       onChangeText={(newText) => handleInputChange("quantity", newText)}
                     />
                     <TextInput
-                      style={{
-                        fontSize: 20,
-                        height: 40,
-                        width: "43%",
-                        borderColor: "rgba(255, 255, 255, .3)",
-                        borderWidth: 1,
-                        borderRadius: 10,
-                        marginBottom: 10,
-                        fontWeight: "200",
-                        paddingLeft: 10,
-                        color: "white",
-                      }}
+                      style={styles.inputText}
                       placeholder="Low Limit"
                       placeholderTextColor={"grey"}
                       keyboardType="numeric"
@@ -176,11 +144,11 @@ export default function InventoryScreen() {
                     />
                   </View>
                   <Dropdown
-                    data={categories!}
+                    data={categories ? categories : [{ id: "0", name: "No data", createdAt: "", updatedAt: "" }]}
                     labelField="name"
                     valueField="id"
                     onChange={(item) => handleInputChange("categoryId", item.id)}
-                    value={category}
+                    value={"1"}
                     placeholder="Add Category"
                     placeholderStyle={[styles.dropDownText]}
                     selectedTextStyle={styles.dropDownText}
@@ -197,6 +165,7 @@ export default function InventoryScreen() {
                     activeColor="#936525"
                     showsVerticalScrollIndicator
                     autoScroll
+                    confirmSelectItem={true}
                     style={{
                       width: "90%",
                       paddingHorizontal: 25,
@@ -310,6 +279,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 20,
     padding: 20,
+  },
+  inputText: {
+    fontSize: 20,
+    height: 40,
+    width: "43%",
+    borderColor: "rgba(255, 255, 255, .3)",
+    borderWidth: 1,
+    borderRadius: 10,
+    marginBottom: 10,
+    fontWeight: "200",
+    paddingLeft: 10,
+    color: "white",
   },
   innerContainer: {
     flex: 1,
